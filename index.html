@@ -20,7 +20,7 @@
   --cream:#f8f5f0;--cream2:#f2ede6;--cream3:#e8ddd4;
   --mid:#6a4a30;--muted:#9a8a7a;--accent:#c4855a;
   --border:#e0d4c8;--border-dark:rgba(255,255,255,.08);
-  --white:#fff;--text:#1a0f0a;--card-text:#1a0f0a;
+  --white:#fff;--text:#1a0f0a;--card-text:#1a0f0a;--cal-day:var(--muted);
   --sw:220px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -240,7 +240,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 .kal-month-lbl{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--card-text);font-style:italic;font-weight:300}
 .kal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
 .kal-dow{font-size:9px;color:var(--muted);text-align:center;letter-spacing:1px;padding:4px 0;text-transform:uppercase;font-weight:300}
-.kal-day{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;position:relative;overflow:hidden;font-size:12px;color:var(--muted);transition:all .15s;font-weight:300}
+.kal-day{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;position:relative;overflow:hidden;font-size:12px;color:var(--cal-day);transition:all .15s;font-weight:300}
 .kal-day.has-album{cursor:pointer;background:var(--white);border:0.5px solid var(--border)}
 .kal-day.has-album:hover{border-color:var(--gold);transform:scale(1.06)}
 .kal-day.special{border:1.5px solid var(--gold);background:rgba(196,160,96,.06)}
@@ -3634,6 +3634,8 @@ function applyTheme(t){
   if(t.cream2){r.setProperty('--cream2',t.cream2);}
   if(t.white){r.setProperty('--white',t.white);}
   if(t.cardText){r.setProperty('--card-text',t.cardText);}
+  // Calendar day number: gunakan cream agar kontras di bg gelap manapun
+  if(t.cream){r.setProperty('--cal-day',t.cream);}
   var homeBg=t.home||(t.dark||'#1a0f0a');
   r.setProperty('--home-bg',homeBg);
   if(t.sidebar){
