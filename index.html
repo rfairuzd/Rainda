@@ -2279,6 +2279,9 @@ function kalConnect(){const e=document.getElementById('kal-email').value.trim();
 window.kalPrev=kalPrev;window.kalNext=kalNext;window.kalConnect=kalConnect;
 
 // ── STORY MODE ──
+// ── STORY STATE (sorted) ──
+var _storyAlbums=[];  // sorted copy used only by story
+
 function renderStory(){
   var bar=document.getElementById('story-circles-bar');
   var strip=document.getElementById('story-photo-strip');
@@ -2286,14 +2289,24 @@ function renderStory(){
     bar.innerHTML='<div style="font-size:10px;color:rgba(255,255,255,.3);padding:4px">Belum ada album</div>';
     return;
   }
+  // Sort ascending by date (oldest first)
+  _storyAlbums=[...albums].sort(function(a,b){
+    var pa=parseTL(a.date),pb=parseTL(b.date);
+    if(pa.yr!==pb.yr)return pa.yr-pb.yr;
+    return pa.mo-pb.mo;
+  });
+  // Clamp storyAlbumIdx
+  if(storyAlbumIdx>=_storyAlbums.length)storyAlbumIdx=0;
   // Render circles
   var bHtml='';
-  albums.forEach(function(a,i){
-    var img=a.photos&&a.photos[0]
-      ?('<img src="'+a.photos[0]+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">')
-      :'<div style="width:100%;height:100%;background:#2a1a0a;border-radius:50%"></div>';
+  _storyAlbums.forEach(function(a,i){
+    var img=a.coverPhoto
+      ?('<img src="'+a.coverPhoto+'" style="width:100%;height:100%;object-fit:cover;object-position:'+(a.coverPosition||'center')+';border-radius:50%">')
+      :(a.photos&&a.photos[0]
+        ?('<img src="'+a.photos[0]+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">')
+        :'<div style="width:100%;height:100%;background:#2a1a0a;border-radius:50%"></div>');
     var active=i===storyAlbumIdx;
-    bHtml+='<div onclick="storySelectAlbum('+i+')" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0">'
+    bHtml+='<div id="story-av-'+i+'" onclick="storySelectAlbum('+i+')" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0">'
       +'<div style="width:58px;height:58px;border-radius:50%;overflow:hidden;border:2.5px solid '+(active?'#c4a060':'rgba(255,255,255,.2)')+';transition:border-color .2s;flex-shrink:0">'
       +img+'</div>'
       +'<div style="font-size:9px;color:'+(active?'#c4a060':'rgba(255,255,255,.4)')+';letter-spacing:.5px;font-weight:300;max-width:58px;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'
@@ -2301,7 +2314,7 @@ function renderStory(){
       +'</div>';
   });
   bar.innerHTML=bHtml;
-  // Show first album
+  // Show album at current index
   storyShowAlbum(storyAlbumIdx);
   setTimeout(resizeStoryPortrait,50);
 }
@@ -2314,7 +2327,7 @@ function storyShowAlbum(idx){
   storyTimer=setInterval(function(){storyNav(1);},storyDuration);
   // Render strip
   var strip=document.getElementById('story-photo-strip');
-  var a=albums[idx];
+  var a=_storyAlbums[idx];
   if(!strip||!a)return;
   var sHtml='';
   (a.photos||[]).forEach(function(p,i){
@@ -2324,29 +2337,37 @@ function storyShowAlbum(idx){
 }
 
 function storySelectAlbum(idx){
-  storyShowAlbum(idx);
-  // Update circles highlight
+  if(storyTimer)clearInterval(storyTimer);
+  storyAlbumIdx=Math.min(idx,_storyAlbums.length-1);
+  storyPhotoIdx=0;
+  // Update circle highlights
   var bar=document.getElementById('story-circles-bar');
   if(bar){
-    var items=bar.querySelectorAll('div[onclick]');
-    items.forEach(function(el,i){
-      var circle=el.querySelector('div');
-      var lbl=el.querySelectorAll('div')[1];
+    _storyAlbums.forEach(function(_,i){
+      var item=document.getElementById('story-av-'+i);
+      if(!item)return;
+      var circle=item.querySelector('div');
+      var lbl=item.querySelectorAll('div')[1];
       if(circle) circle.style.borderColor=i===idx?'#c4a060':'rgba(255,255,255,.2)';
       if(lbl) lbl.style.color=i===idx?'#c4a060':'rgba(255,255,255,.4)';
     });
   }
-}
-function storySelectAlbum(idx){
-  if(storyTimer)clearInterval(storyTimer);
-  storyAlbumIdx=Math.min(idx,albums.length-1);
-  storyPhotoIdx=0;
-  document.querySelectorAll('[id^="story-av-"]').forEach((el,i)=>el.classList.toggle('active',i===storyAlbumIdx));
+  // Render strip immediately
+  var strip=document.getElementById('story-photo-strip');
+  var a=_storyAlbums[storyAlbumIdx];
+  if(strip&&a){
+    var sHtml='';
+    (a.photos||[]).forEach(function(p,i){
+      sHtml+='<img onclick="storyGoPhoto('+i+')" src="'+p+'" style="width:60px;height:60px;border-radius:8px;object-fit:cover;cursor:pointer;flex-shrink:0;border:2px solid '+(i===0?'#c4a060':'transparent')+';transition:border-color .2s">';
+    });
+    strip.innerHTML=sHtml||'<div style="color:rgba(255,255,255,.2);font-size:11px">Belum ada foto</div>';
+  }
   updateStoryView();
-  storyTimer=setInterval(()=>storyNav(1),storyDuration);
+  storyTimer=setInterval(function(){storyNav(1);},storyDuration);
 }
+
 function updateStoryView(){
-  var a=albums[storyAlbumIdx];
+  var a=_storyAlbums[storyAlbumIdx];
   if(!a)return;
   var photos=a.photos||[];
   var photo=photos[storyPhotoIdx]||null;
@@ -2373,7 +2394,7 @@ function updateStoryView(){
     });
     progRow.innerHTML=pH;
   }
-  // Update strip
+  // Update strip highlights only (strip already rendered)
   var strip=document.getElementById('story-photo-strip');
   if(strip){
     strip.querySelectorAll('img').forEach(function(el,i){
@@ -2381,18 +2402,19 @@ function updateStoryView(){
     });
   }
 }
+
 function storyNav(dir){
-  var a=albums[storyAlbumIdx];
+  var a=_storyAlbums[storyAlbumIdx];
   if(!a)return;
   var photos=a.photos||[];
   storyPhotoIdx+=dir;
   if(storyPhotoIdx>=photos.length){
-    var nextIdx=(storyAlbumIdx+1)%albums.length;
+    var nextIdx=(storyAlbumIdx+1)%_storyAlbums.length;
     storySelectAlbum(nextIdx);
     return;
   }
   if(storyPhotoIdx<0){
-    var prevIdx=(storyAlbumIdx-1+albums.length)%albums.length;
+    var prevIdx=(storyAlbumIdx-1+_storyAlbums.length)%_storyAlbums.length;
     storySelectAlbum(prevIdx);
     return;
   }
