@@ -20,7 +20,7 @@
   --cream:#f8f5f0;--cream2:#f2ede6;--cream3:#e8ddd4;
   --mid:#6a4a30;--muted:#9a8a7a;--accent:#c4855a;
   --border:#e0d4c8;--border-dark:rgba(255,255,255,.08);
-  --white:#fff;--text:#1a0f0a;--card-text:#1a0f0a;--cal-day:var(--muted);
+  --white:#fff;--text:#1a0f0a;--card-text:#1a0f0a;--cal-day:rgba(0,0,0,0.4);
   --sw:220px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -3634,8 +3634,13 @@ function applyTheme(t){
   if(t.cream2){r.setProperty('--cream2',t.cream2);}
   if(t.white){r.setProperty('--white',t.white);}
   if(t.cardText){r.setProperty('--card-text',t.cardText);}
-  // Calendar day number: gunakan cream agar kontras di bg gelap manapun
-  if(t.cream){r.setProperty('--cal-day',t.cream);}
+  // Calendar day number: auto kontras
+  if(t.cream){
+    var ch=t.cream.replace('#','');
+    var cr2=parseInt(ch.substring(0,2),16),cg2=parseInt(ch.substring(2,4),16),cb2=parseInt(ch.substring(4,6),16);
+    var bright=(cr2*299+cg2*587+cb2*114)/1000;
+    r.setProperty('--cal-day', bright>128 ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.75)');
+  }
   var homeBg=t.home||(t.dark||'#1a0f0a');
   r.setProperty('--home-bg',homeBg);
   if(t.sidebar){
