@@ -523,16 +523,13 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 }
 
 :root{--home-bg:var(--dark)}
-
-/* ── SCROLLBAR GLOBAL: ghost, ikut warna --dark ── */
+/* ── SCROLLBAR: ghost, ikut --dark ── */
 *{scrollbar-width:thin;scrollbar-color:transparent transparent}
-*:hover{scrollbar-color:rgba(var(--dark-rgb,.26,.15,.1),.28) transparent}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:transparent;border-radius:4px;transition:background .3s}
-*:hover::-webkit-scrollbar-thumb{background:rgba(var(--dark-rgb,.26,.15,.1),.28)}
-::-webkit-scrollbar-thumb:hover{background:rgba(var(--dark-rgb,.26,.15,.1),.5)!important}
-/* story bars tetap hidden */
+*:hover::-webkit-scrollbar-thumb{background:rgba(26,15,10,.28)}
+::-webkit-scrollbar-thumb:hover{background:rgba(26,15,10,.5)!important}
 .story-circles-bar::-webkit-scrollbar,.story-photo-strip::-webkit-scrollbar,
 #story-circles-bar::-webkit-scrollbar,#story-photo-strip::-webkit-scrollbar{display:none}
 .story-circles-bar,.story-photo-strip,#story-circles-bar,#story-photo-strip{scrollbar-width:none}
@@ -1001,6 +998,22 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                       <input type="color" id="theme-sidebar" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-sidebar-val">#1a0f0a</span>
                     </div>
+                  </div>
+                  <div>
+                    <label class="f-lbl">Warna Card / Kotak</label>
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <input type="color" id="theme-white" value="#ffffff" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <span style="font-size:10px;color:var(--muted)" id="theme-white-val">#ffffff</span>
+                    </div>
+                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Album, timeline, music, form, dll</div>
+                  </div>
+                  <div>
+                    <label class="f-lbl">Warna Teks Utama</label>
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <span style="font-size:10px;color:var(--muted)" id="theme-text-val">#1a0f0a</span>
+                    </div>
+                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks di atas card/kotak terang</div>
                   </div>
                   <div style="grid-column:1/-1">
                     <label class="f-lbl">Background Home (halaman utama)</label>
@@ -3589,38 +3602,38 @@ window.initCtrlLogo=initCtrlLogo;
 
 // ── TEMA WARNA ──
 var _themes={
-  cokelat:{dark:'#1a0f0a',dark2:'#2d1f15',gold:'#c4a060',gold2:'#d4b070',cream:'#f8f4ef',cream2:'#f0ebe4',sidebar:'#1a0f0a'},
-  hitam:{dark:'#0a0a0a',dark2:'#1a1a1a',gold:'#e0e0e0',gold2:'#ffffff',cream:'#f5f5f5',cream2:'#ebebeb',sidebar:'#0a0a0a'},
-  navy:{dark:'#0f1a2e',dark2:'#1e2f4a',gold:'#5b9bd5',gold2:'#7ab3e0',cream:'#f0f4f8',cream2:'#e4edf5',sidebar:'#0f1a2e'},
-  hijau:{dark:'#0f1f0f',dark2:'#1a3a1a',gold:'#4caf50',gold2:'#66bb6a',cream:'#f1f8f1',cream2:'#e4f5e4',sidebar:'#0f1f0f'},
-  ungu:{dark:'#1a0f2e',dark2:'#2d1f4a',gold:'#9c6fce',gold2:'#b48fe0',cream:'#f5f0ff',cream2:'#ede4ff',sidebar:'#1a0f2e'},
-  rose:{dark:'#2e0f1a',dark2:'#4a1f2e',gold:'#e06fa0',gold2:'#f08ab8',cream:'#fff0f5',cream2:'#ffe4ee',sidebar:'#2e0f1a'},
+  cokelat:{dark:'#1a0f0a',dark2:'#2d1f15',gold:'#c4a060',gold2:'#d4b070',cream:'#f8f4ef',cream2:'#f0ebe4',sidebar:'#1a0f0a',white:'#ffffff',text:'#1a0f0a'},
+  hitam:{dark:'#0a0a0a',dark2:'#1a1a1a',gold:'#e0e0e0',gold2:'#ffffff',cream:'#f5f5f5',cream2:'#ebebeb',sidebar:'#0a0a0a',white:'#ffffff',text:'#0a0a0a'},
+  navy:{dark:'#0f1a2e',dark2:'#1e2f4a',gold:'#5b9bd5',gold2:'#7ab3e0',cream:'#f0f4f8',cream2:'#e4edf5',sidebar:'#0f1a2e',white:'#ffffff',text:'#0f1a2e'},
+  hijau:{dark:'#0f1f0f',dark2:'#1a3a1a',gold:'#4caf50',gold2:'#66bb6a',cream:'#f1f8f1',cream2:'#e4f5e4',sidebar:'#0f1f0f',white:'#ffffff',text:'#0f1f0f'},
+  ungu:{dark:'#1a0f2e',dark2:'#2d1f4a',gold:'#9c6fce',gold2:'#b48fe0',cream:'#f5f0ff',cream2:'#ede4ff',sidebar:'#1a0f2e',white:'#ffffff',text:'#1a0f2e'},
+  rose:{dark:'#2e0f1a',dark2:'#4a1f2e',gold:'#e06fa0',gold2:'#f08ab8',cream:'#fff0f5',cream2:'#ffe4ee',sidebar:'#2e0f1a',white:'#ffffff',text:'#2e0f1a'},
 };
 
 function applyTheme(t){
   var r=document.documentElement.style;
   if(t.dark){
     r.setProperty('--dark',t.dark);
-    // Convert hex to rgb for scrollbar CSS
     var hex=t.dark.replace('#','');
     var rv=parseInt(hex.substring(0,2),16);
     var gv=parseInt(hex.substring(2,4),16);
     var bv=parseInt(hex.substring(4,6),16);
-    r.setProperty('--dark-rgb',rv+','+gv+','+bv);
-    // Update scrollbar thumb color directly
-    var style=document.getElementById('_sb_style');
-    if(!style){style=document.createElement('style');style.id='_sb_style';document.head.appendChild(style);}
-    style.textContent='*:hover::-webkit-scrollbar-thumb{background:rgba('+rv+','+gv+','+bv+',.28)!important}'
+    var sb=document.getElementById('_sb_style');
+    if(!sb){sb=document.createElement('style');sb.id='_sb_style';document.head.appendChild(sb);}
+    sb.textContent='*:hover::-webkit-scrollbar-thumb{background:rgba('+rv+','+gv+','+bv+',.28)!important}'
       +'::-webkit-scrollbar-thumb:hover{background:rgba('+rv+','+gv+','+bv+',.5)!important}'
       +'*{scrollbar-color:transparent transparent}'
-      +'*:hover{scrollbar-color:rgba('+rv+','+gv+','+bv+',.28) transparent}';
+      +'*:hover{scrollbar-color:rgba('+rv+','+gv+','+bv+',.28) transparent}'
+      +'.story-circles-bar,.story-photo-strip,#story-circles-bar,#story-photo-strip{scrollbar-width:none!important}'
+      +'.story-circles-bar::-webkit-scrollbar,.story-photo-strip::-webkit-scrollbar,#story-circles-bar::-webkit-scrollbar,#story-photo-strip::-webkit-scrollbar{display:none!important}';
   }
   if(t.dark2){r.setProperty('--dark2',t.dark2);}
   if(t.gold){r.setProperty('--gold',t.gold);}
   if(t.gold2){r.setProperty('--gold2',t.gold2);}
   if(t.cream){r.setProperty('--cream',t.cream);r.setProperty('--cream-bg',t.cream);}
   if(t.cream2){r.setProperty('--cream2',t.cream2);}
-  // Home background - INDEPENDENT from dark
+  if(t.white){r.setProperty('--white',t.white);}
+  if(t.text){r.setProperty('--text',t.text);}
   var homeBg=t.home||(t.dark||'#1a0f0a');
   r.setProperty('--home-bg',homeBg);
   if(t.sidebar){
@@ -3631,13 +3644,14 @@ function applyTheme(t){
     var topbar=document.querySelector('.topbar');
     if(topbar)topbar.style.background=t.sidebar;
   }
-  // Update all color pickers
   var pairs=[
     ['theme-dark',t.dark||'#1a0f0a'],
     ['theme-gold',t.gold||'#c4a060'],
     ['theme-cream',t.cream||'#f8f4ef'],
     ['theme-sidebar',t.sidebar||'#1a0f0a'],
     ['theme-home',homeBg],
+    ['theme-white',t.white||'#ffffff'],
+    ['theme-text',t.text||'#1a0f0a'],
   ];
   pairs.forEach(function(p){
     var el=document.getElementById(p[0]);if(el)el.value=p[1];
@@ -3673,11 +3687,15 @@ function saveTheme(){
   var sidebar=document.getElementById('theme-sidebar').value||dark;
   var homeEl=document.getElementById('theme-home');
   var home=homeEl?homeEl.value||dark:dark;
+  var whiteEl=document.getElementById('theme-white');
+  var white=whiteEl?whiteEl.value||'#ffffff':'#ffffff';
+  var textEl=document.getElementById('theme-text');
+  var text=textEl?textEl.value||'#1a0f0a':'#1a0f0a';
   var t={
     dark:dark,dark2:lightenHex(dark,15),
     gold:gold,gold2:lightenHex(gold,15),
     cream:cream,cream2:darkenHex(cream,8),
-    sidebar:sidebar,home:home
+    sidebar:sidebar,home:home,white:white,text:text
   };
   applyTheme(t);
   _saveThemeToFirebase(t);
@@ -3711,7 +3729,6 @@ function darkenHex(hex,amt){
   }catch(e){return hex;}
 }
 
-// Live preview - reads ALL inputs every change
 function previewTheme(){
   var dark=document.getElementById('theme-dark').value||'#1a0f0a';
   var gold=document.getElementById('theme-gold').value||'#c4a060';
@@ -3719,16 +3736,20 @@ function previewTheme(){
   var sidebar=document.getElementById('theme-sidebar').value||dark;
   var homeEl=document.getElementById('theme-home');
   var home=homeEl?homeEl.value||dark:dark;
-  applyTheme({dark:dark,dark2:lightenHex(dark,15),gold:gold,gold2:lightenHex(gold,15),cream:cream,cream2:darkenHex(cream,8),sidebar:sidebar,home:home});
+  var whiteEl=document.getElementById('theme-white');
+  var white=whiteEl?whiteEl.value||'#ffffff':'#ffffff';
+  var textEl=document.getElementById('theme-text');
+  var text=textEl?textEl.value||'#1a0f0a':'#1a0f0a';
+  applyTheme({dark:dark,dark2:lightenHex(dark,15),gold:gold,gold2:lightenHex(gold,15),cream:cream,cream2:darkenHex(cream,8),sidebar:sidebar,home:home,white:white,text:text});
 }
 document.addEventListener('DOMContentLoaded',function(){
-  ['dark','gold','cream','sidebar','home'].forEach(function(key){
+  ['dark','gold','cream','sidebar','home','white','text'].forEach(function(key){
     var inp=document.getElementById('theme-'+key);
     var val=document.getElementById('theme-'+key+'-val');
     if(inp&&val){
       inp.addEventListener('input',function(){
         val.textContent=inp.value;
-        previewTheme(); // preview ALL colors together
+        previewTheme();
       });
     }
   });
