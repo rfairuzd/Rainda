@@ -3690,7 +3690,7 @@ function saveTheme(){
   var whiteEl=document.getElementById('theme-white');
   var white=whiteEl?whiteEl.value||'#ffffff':'#ffffff';
   var textEl2=document.getElementById('theme-card-text');
-  var cardText=textEl?textEl.value||'#1a0f0a':'#1a0f0a';
+  var cardText=textEl2?textEl2.value||'#1a0f0a':'#1a0f0a';
   var t={
     dark:dark,dark2:lightenHex(dark,15),
     gold:gold,gold2:lightenHex(gold,15),
@@ -3739,7 +3739,7 @@ function previewTheme(){
   var whiteEl=document.getElementById('theme-white');
   var white=whiteEl?whiteEl.value||'#ffffff':'#ffffff';
   var textEl2=document.getElementById('theme-card-text');
-  var cardText=textEl?textEl.value||'#1a0f0a':'#1a0f0a';
+  var cardText=textEl2?textEl2.value||'#1a0f0a':'#1a0f0a';
   applyTheme({dark:dark,dark2:lightenHex(dark,15),gold:gold,gold2:lightenHex(gold,15),cream:cream,cream2:darkenHex(cream,8),sidebar:sidebar,home:home,white:white,cardText:cardText});
 }
 document.addEventListener('DOMContentLoaded',function(){
