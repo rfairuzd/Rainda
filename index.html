@@ -1071,6 +1071,10 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
       </div>
       <input type="hidden" id="e-video">
     </div>
+    <div class="f-sec" id="e-existing-photos-sec">
+      <label class="f-lbl">Foto saat ini <span id="e-existing-count" style="color:var(--muted);font-weight:300"></span></label>
+      <div id="e-existing-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px"></div>
+    </div>
     <div class="f-sec"><label class="f-lbl">Tambah foto baru</label><div class="upzone" style="padding:14px" onclick="document.getElementById('e-photos').click()"><div class="up-text" style="font-size:12px">Tap untuk tambah foto</div></div><input type="file" id="e-photos" multiple accept="image/*" style="display:none"><div class="up-prev" id="e-prev"></div><div class="prog" id="e-prog"><div class="prog-f" id="e-prog-f"></div></div></div>
     <div class="f-sec"><label class="f-lbl">Favorit?</label><select class="f-in" id="e-fav"><option value="false">Tidak</option><option value="true">Ya ✦</option></select></div>
     <div class="modal-btns"><button class="m-cancel" onclick="closeModal('edit-modal')">Batal</button><button class="m-save" id="e-btn" onclick="saveEdit()">Simpan</button></div>
@@ -2812,8 +2816,34 @@ dz.addEventListener('drop',e=>{
 });
 
 // ── EDIT ──
+// ── EXISTING PHOTOS EDITOR ──
+var _deletedPhotos=[];
+function renderExistingPhotos(){
+  var grid=document.getElementById('e-existing-grid');
+  var countEl=document.getElementById('e-existing-count');
+  var sec=document.getElementById('e-existing-photos-sec');
+  if(!grid)return;
+  var photos=(current&&current.photos)||[];
+  var remaining=photos.filter(function(url){return _deletedPhotos.indexOf(url)===-1;});
+  if(countEl)countEl.textContent='('+remaining.length+' foto)';
+  if(!photos.length){if(sec)sec.style.display='none';return;}
+  if(sec)sec.style.display='block';
+  grid.innerHTML=remaining.map(function(url,i){
+    return '<div style="position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--border)">'
+      +'<img src="'+url+'" style="width:100%;height:100%;object-fit:cover" loading="lazy">'
+      +'<button onclick="deleteExistingPhoto(\''+url+'\')" title="Hapus foto ini" style="position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(200,50,50,.85);border:none;color:#fff;font-size:13px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:sans-serif">✕</button>'
+      +'</div>';
+  }).join('');
+}
+window.deleteExistingPhoto=function(url){
+  if(!confirm('Hapus foto ini dari album?'))return;
+  _deletedPhotos.push(url);
+  renderExistingPhotos();
+};
+
 function openEditModal(){
   if(!current)return;
+  _deletedPhotos=[];
   document.getElementById('e-place').value=current.place||'';
   const ps=document.getElementById('e-place-search');if(ps)ps.value=current.location||'';
   document.getElementById('e-lat').value=current.lat||'';
@@ -2834,6 +2864,7 @@ function openEditModal(){
   _editTracks=(current.tracks||[]).map(function(t){return{title:t.title,ytId:t.ytId,url:t.url||('https://youtube.com/watch?v='+(t.ytId||''))};});
   document.getElementById('e-fav').value=current.favorite?'true':'false';
   document.getElementById('e-prev').innerHTML='';eFiles=[];
+  renderExistingPhotos();
   openModal('edit-modal');
   setTimeout(()=>{initPickerMapEdit();if(pickerMapEdit){pickerMapEdit.invalidateSize();if(current.lat&&current.lng)setPickerLocation(current.lat,current.lng,'e',null);}},300);
 }
@@ -2859,7 +2890,7 @@ async function saveEdit(){
   const bar=document.getElementById('e-prog');const fill=document.getElementById('e-prog-f');
   btn.disabled=true;btn.textContent='Menyimpan...';bar.style.display='block';
   try{
-    let photos=[...(current.photos||[])];
+    let photos=(current.photos||[]).filter(function(url){return _deletedPhotos.indexOf(url)===-1;});
     for(let i=0;i<eFiles.length;i++){
       const url=await uploadImg(eFiles[i],p=>{fill.style.width=((i+p)/eFiles.length*100)+'%';});
       photos.push(url);
@@ -2867,7 +2898,7 @@ async function saveEdit(){
     const editTracksToSave=_editTracks.map(function(t){return {title:t.title,ytId:t.ytId,url:t.url||('https://youtube.com/watch?v='+t.ytId)};});
     await window.$upd(window.$ref('albums',current.id),{place,location,date,story,video,videos:videoArr2,favorite:fav,photos,lat,lng,tracks:editTracksToSave});
     toast('Kenangan berhasil diperbarui ✦');
-    _editTracks=[];
+    _deletedPhotos=[];_editTracks=[];
     closeModal('edit-modal');bar.style.display='none';fill.style.width='0%';
     await loadData();openDetail(current.id,_detailFrom);
   }catch(e){console.error(e);toast('Gagal menyimpan.');}
