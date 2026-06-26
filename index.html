@@ -25,6 +25,10 @@
   --sw:220px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+input[type="color"]{-webkit-appearance:none;appearance:none;padding:0;border:none;border-radius:8px;overflow:hidden;cursor:pointer}
+input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+input[type="color"]::-webkit-color-swatch{border:none;border-radius:8px}
+input[type="color"]::-moz-color-swatch{border:none;border-radius:8px}
 html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);overflow:hidden}
 
 /* ── LOCK ── */
@@ -963,7 +967,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                 <div style="font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:300">Preset Tema</div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="theme-presets">
                   <div class="theme-preset" data-theme="cokelat" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#1a0f0a;cursor:pointer;border:3px solid var(--gold)" title="Cokelat (Default)"></div>
-                  <div class="theme-preset" data-theme="hitam" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#1c1814;cursor:pointer;border:2px solid #c0a882" title="Charcoal"></div>
+                  <div class="theme-preset" data-theme="hitam" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#1a0812;cursor:pointer;border:2px solid #c8748a" title="Burgundy"></div>
                   <div class="theme-preset" data-theme="navy" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0d1520;cursor:pointer;border:2px solid #c8905a" title="Midnight"></div>
                   <div class="theme-preset" data-theme="hijau" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0e1a12;cursor:pointer;border:2px solid #6ab870" title="Forest"></div>
                   <div class="theme-preset" data-theme="ungu" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#180f2a;cursor:pointer;border:2px solid #a060e0" title="Twilight"></div>
@@ -977,35 +981,35 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Gelap</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-dark" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-dark" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-dark-val">#1a0f0a</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Aksen</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-gold" value="#c4a060" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-gold" value="#c4a060" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-gold-val">#c4a060</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Background Terang</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-cream" value="#f8f4ef" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-cream" value="#f8f4ef" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-cream-val">#f8f4ef</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Sidebar</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-sidebar" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-sidebar" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-sidebar-val">#1a0f0a</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Card / Kotak</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-white" value="#ffffff" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-white" value="#ffffff" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-white-val">#ffffff</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Album, timeline, music, form, dll</div>
@@ -1013,7 +1017,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Teks Card</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-card-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-card-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-card-text-val">#1a0f0a</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks judul, nama album, timeline</div>
@@ -1021,7 +1025,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Teks Halaman</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-text-val">#1a0f0a</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks body halaman terang (album, timeline, dll)</div>
@@ -1029,7 +1033,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Border / Garis</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-border" value="#e0d4c8" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-border" value="#e0d4c8" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-border-val">#e0d4c8</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Garis tepi card, album, tabel, divider</div>
@@ -1037,7 +1041,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div style="grid-column:1/-1">
                     <label class="f-lbl">Background Home (halaman utama)</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-home" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
+                      <input type="color" id="theme-home" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-home-val">#1a0f0a</span>
                       <span style="font-size:10px;color:var(--muted);font-style:italic">Warna background halaman Home</span>
                     </div>
@@ -3624,26 +3628,26 @@ var _themes={
   // 1. Cokelat — warm espresso (default)
   cokelat:{dark:'#1a0f0a',dark2:'#2d1a0e',gold:'#c4a060',gold2:'#dbb878',cream:'#f8f4ef',cream2:'#ede7de',cream3:'#ddd4c8',white:'#ffffff',border:'#ddd0c0',sidebar:'#1a0f0a',home:'#1a0f0a',cardText:'#1a0f0a',text:'#1a0f0a',mid:'#7a5a3a',muted:'#a08a70',
     homeTitle:'#f0eadf',homeEyebrow:'rgba(196,160,96,.75)',homeSub:'rgba(255,255,255,.28)',homeStat:'rgba(255,255,255,.28)'},
-  // 2. Charcoal
-  hitam:{dark:'#181614',dark2:'#262220',gold:'#d4b896',gold2:'#e8d0b0',cream:'#c8c0b8',cream2:'#b8b0a8',cream3:'#a8a098',white:'#d8d0c8',border:'#908880',sidebar:'#181614',home:'#181614',cardText:'#181614',text:'#181614',mid:'#504844',muted:'#706860',
-    homeTitle:'#f0ece8',homeEyebrow:'rgba(212,184,150,.8)',homeSub:'rgba(255,255,255,.3)',homeStat:'rgba(255,255,255,.3)'},
-  // 3. Midnight
-  navy:{dark:'#0a1020',dark2:'#141c30',gold:'#d4945a',gold2:'#eeaa70',cream:'#1e2e50',cream2:'#182444',cream3:'#142038',white:'#263858',border:'#304878',sidebar:'#0a1020',home:'#0a1020',cardText:'#e8ddd0',text:'#e8ddd0',mid:'#8090b8',muted:'#6070a0',
+  // 2. Burgundy — wine dark, rose-gold accent, warm champagne bg
+  hitam:{dark:'#1a0812',dark2:'#2e1020',gold:'#c8748a',gold2:'#e090a8',cream:'#f5eaee',cream2:'#eadade',cream3:'#d8c4ca',white:'#fff0f4',border:'#d0b0b8',sidebar:'#1a0812',home:'#1a0812',cardText:'#1a0812',text:'#1a0812',mid:'#8a4860',muted:'#a87080',
+    homeTitle:'#fce8f0',homeEyebrow:'rgba(200,116,138,.85)',homeSub:'rgba(255,230,240,.3)',homeStat:'rgba(255,230,240,.3)'},
+  // 3. Midnight — deep navy, warm copper accent, warm parchment bg
+  navy:{dark:'#0a1020',dark2:'#141c30',gold:'#d4945a',gold2:'#eeaa70',cream:'#1e2e50',cream2:'#182444',cream3:'#142038',white:'#263858',border:'#304878',sidebar:'#0a1020',home:'#0a1020',cardText:'#e8ddd0',text:'#e8ddd0',mid:'#8090b8',muted:'#6878a8',
     homeTitle:'#d8e8ff',homeEyebrow:'rgba(212,148,90,.85)',homeSub:'rgba(180,210,255,.35)',homeStat:'rgba(180,210,255,.35)'},
-  // 4. Forest
-  hijau:{dark:'#0c1810',dark2:'#162410',gold:'#58c060',gold2:'#78d880',cream:'#1a3020',cream2:'#142818',cream3:'#102014',white:'#223828',border:'#305838',sidebar:'#0c1810',home:'#0c1810',cardText:'#d0ecd8',text:'#d0ecd8',mid:'#60a870',muted:'#489858',
+  // 4. Forest — dark forest, vivid sage accent, deep green bg
+  hijau:{dark:'#0c1810',dark2:'#162410',gold:'#58c060',gold2:'#78d880',cream:'#1a3020',cream2:'#142818',cream3:'#102014',white:'#223828',border:'#305838',sidebar:'#0c1810',home:'#0c1810',cardText:'#d0ecd8',text:'#d0ecd8',mid:'#60a870',muted:'#509060',
     homeTitle:'#c8f0d0',homeEyebrow:'rgba(88,192,96,.85)',homeSub:'rgba(180,255,190,.3)',homeStat:'rgba(180,255,190,.3)'},
-  // 5. Twilight
-  ungu:{dark:'#140c28',dark2:'#201440',gold:'#b870f8',gold2:'#cc98ff',cream:'#2a1858',cream2:'#201248',cream3:'#180e38',white:'#341e68',border:'#5030a0',sidebar:'#140c28',home:'#140c28',cardText:'#ecdeff',text:'#ecdeff',mid:'#9060d0',muted:'#7050b0',
+  // 5. Twilight — deep plum, vivid violet accent, deep purple bg — teks terang kontras
+  ungu:{dark:'#140c28',dark2:'#201440',gold:'#b870f8',gold2:'#cc98ff',cream:'#2a1858',cream2:'#201248',cream3:'#180e38',white:'#341e68',border:'#5030a0',sidebar:'#140c28',home:'#140c28',cardText:'#f0e4ff',text:'#f0e4ff',mid:'#c090f0',muted:'#9060c8',
     homeTitle:'#e8d0ff',homeEyebrow:'rgba(184,112,248,.85)',homeSub:'rgba(220,180,255,.32)',homeStat:'rgba(220,180,255,.32)'},
-  // 6. Dusty Rose
-  rose:{dark:'#220c18',dark2:'#381428',gold:'#f06080',gold2:'#ff84a0',cream:'#5a1e38',cream2:'#4a1830',cream3:'#3a1228',white:'#6e2848',border:'#9e4870',sidebar:'#220c18',home:'#220c18',cardText:'#ffdde8',text:'#ffdde8',mid:'#c05070',muted:'#a04060',
+  // 6. Dusty Rose — deep wine, vivid rose accent, deep rose bg — teks terang kontras
+  rose:{dark:'#220c18',dark2:'#381428',gold:'#f06080',gold2:'#ff84a0',cream:'#5a1e38',cream2:'#4a1830',cream3:'#3a1228',white:'#6e2848',border:'#9e4870',sidebar:'#220c18',home:'#220c18',cardText:'#ffe8f0',text:'#ffe8f0',mid:'#f080a0',muted:'#c05878',
     homeTitle:'#ffd0e0',homeEyebrow:'rgba(240,96,128,.85)',homeSub:'rgba(255,200,220,.32)',homeStat:'rgba(255,200,220,.32)'},
-  // 7. Slate
-  slate:{dark:'#0c1420',dark2:'#142030',gold:'#50a0e0',gold2:'#74bef8',cream:'#1a2c44',cream2:'#142238',cream3:'#101c30',white:'#22364e',border:'#305878',sidebar:'#0c1420',home:'#0c1420',cardText:'#cce0f8',text:'#cce0f8',mid:'#4080b8',muted:'#3068a0',
+  // 7. Slate — cool dark slate, sky-blue accent, deep slate bg
+  slate:{dark:'#0c1420',dark2:'#142030',gold:'#50a0e0',gold2:'#74bef8',cream:'#1a2c44',cream2:'#142238',cream3:'#101c30',white:'#22364e',border:'#305878',sidebar:'#0c1420',home:'#0c1420',cardText:'#cce0f8',text:'#cce0f8',mid:'#4080b8',muted:'#3870a8',
     homeTitle:'#c8e4ff',homeEyebrow:'rgba(80,160,224,.85)',homeSub:'rgba(160,210,255,.32)',homeStat:'rgba(160,210,255,.32)'},
-  // 8. Caramel
-  caramel:{dark:'#201008',dark2:'#321808',gold:'#f0a030',gold2:'#ffc050',cream:'#6a3e10',cream2:'#5a3408',cream3:'#4a2a04',white:'#7e4e18',border:'#b07030',sidebar:'#201008',home:'#201008',cardText:'#ffefd0',text:'#ffefd0',mid:'#d08030',muted:'#b06020',
+  // 8. Caramel — warm caramel dark, amber accent, deep amber bg — teks terang kontras
+  caramel:{dark:'#201008',dark2:'#321808',gold:'#f0a030',gold2:'#ffc050',cream:'#6a3e10',cream2:'#5a3408',cream3:'#4a2a04',white:'#7e4e18',border:'#b07030',sidebar:'#201008',home:'#201008',cardText:'#fff0d0',text:'#fff0d0',mid:'#f0b050',muted:'#c07828',
     homeTitle:'#ffead0',homeEyebrow:'rgba(240,160,48,.85)',homeSub:'rgba(255,220,160,.32)',homeStat:'rgba(255,220,160,.32)'},
 };
 
