@@ -103,32 +103,32 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 .home-stat-l{font-size:8px;color:var(--home-stat);letter-spacing:3px;text-transform:uppercase;margin-top:3px;font-weight:300}
 
 /* Countdown */
-.countdown-card{background:rgba(255,255,255,.04);border:0.5px solid rgba(196,160,96,.2);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.countdown-card{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;margin-bottom:14px}
 .cd-left{}
-.cd-eyebrow{}
+.cd-eyebrow{font-size:8px;color:var(--home-eyebrow);letter-spacing:2px;text-transform:uppercase;font-weight:300}
 .cd-name{}
 .cd-boxes{}
-.cd-box{background:rgba(255,255,255,.06);border:0.5px solid rgba(196,160,96,.15);border-radius:8px;padding:8px 4px;text-align:center}
+.cd-box{background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 4px;text-align:center}
 .cd-n{font-family:'Jost',sans-serif;font-size:22px;color:var(--gold2);line-height:1;font-weight:300;font-variant-numeric:tabular-nums}
 .cd-l{font-size:7px;color:var(--home-stat);letter-spacing:1px;text-transform:uppercase;margin-top:3px;font-weight:300}
 
 /* Music mini */
 .music-mini{background:rgba(255,255,255,.04);border:0.5px solid var(--border-dark);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:24px;cursor:pointer;transition:background .2s;position:relative}
 .music-mini:hover{background:rgba(255,255,255,.06)}
-.mm-thumb{width:34px;height:34px;border-radius:8px;background:rgba(196,160,96,.15);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.mm-thumb{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.08);flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .mm-info{flex:1;min-width:0;overflow:hidden}
-.mm-title{font-size:12px;color:rgba(255,255,255,.75);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
-.mm-sub{font-size:10px;color:rgba(255,255,255,.25);margin-top:1px;font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.mm-title{font-size:12px;color:var(--home-title);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.mm-sub{font-size:10px;color:var(--home-stat);margin-top:1px;font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
 .mm-controls{display:flex;gap:8px;align-items:center}
-.mm-btn{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;padding:0;display:flex;transition:color .2s}
-.mm-btn:hover{color:rgba(255,255,255,.8)}
+.mm-btn{background:none;border:none;color:var(--home-stat);cursor:pointer;padding:0;display:flex;transition:color .2s}
+.mm-btn:hover{color:var(--home-title)}
 .mm-play{width:30px;height:30px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:transform .15s}
 .mm-play:hover{transform:scale(1.08)}
 .mm-prog-wrap{flex:1;margin:0 6px}
 .mm-prog{height:2px;background:rgba(255,255,255,.1);border-radius:1px}
-.mm-prog-fill{height:100%;background:rgba(196,160,96,.6);border-radius:1px;width:30%}
+.mm-prog-fill{height:100%;background:var(--gold);border-radius:1px;width:30%}
 .mm-time{display:flex;justify-content:space-between;margin-top:3px}
-.mm-t{font-size:8px;color:rgba(255,255,255,.2);letter-spacing:.5px}
+.mm-t{font-size:8px;color:var(--home-stat);letter-spacing:.5px}
 
 /* Recent albums */
 .home-recent{padding:24px 32px}
@@ -637,7 +637,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
           </div>
           <div class="countdown-card" id="countdown-card">
             <div style="display:flex;flex-direction:column;gap:8px;width:100%">
-              <div style="font-size:8px;color:rgba(196,160,96,.6);letter-spacing:2px;text-transform:uppercase;font-weight:300">Sudah bersama</div>
+              <div class="cd-eyebrow">Sudah bersama</div>
               <div style="display:flex;gap:6px;width:100%">
                 <div class="cd-box" style="flex:1"><div class="cd-n" id="cd-d">-</div><div class="cd-l">Hari</div></div>
                 <div class="cd-box" style="flex:1"><div class="cd-n" id="cd-h">-</div><div class="cd-l">Jam</div></div>
@@ -647,7 +647,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
             </div>
           </div>
           <div class="music-mini" id="music-mini" onclick="goNav('music',document.getElementById('nav-music'))">
-            <div class="mm-thumb"><svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(196,160,96,.8)"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <div class="mm-thumb"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--gold)"><polygon points="5,3 19,12 5,21"/></svg></div>
             <div class="mm-info">
               <div class="mm-title" id="mm-title">Tidak ada lagu</div>
               <div class="mm-sub" id="mm-sub">Tambah lagu di menu Music</div>
@@ -977,35 +977,35 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Gelap</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-dark" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-dark" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-dark-val">#1a0f0a</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Aksen</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-gold" value="#c4a060" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-gold" value="#c4a060" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-gold-val">#c4a060</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Background Terang</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-cream" value="#f8f4ef" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-cream" value="#f8f4ef" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-cream-val">#f8f4ef</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Sidebar</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-sidebar" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-sidebar" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-sidebar-val">#1a0f0a</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Card / Kotak</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-white" value="#ffffff" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-white" value="#ffffff" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-white-val">#ffffff</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Album, timeline, music, form, dll</div>
@@ -1013,7 +1013,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Teks Card</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-card-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-card-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-card-text-val">#1a0f0a</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks judul, nama album, timeline</div>
@@ -1021,7 +1021,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Teks Halaman</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-text-val">#1a0f0a</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks body halaman terang (album, timeline, dll)</div>
@@ -1029,7 +1029,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div>
                     <label class="f-lbl">Warna Border / Garis</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-border" value="#e0d4c8" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-border" value="#e0d4c8" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-border-val">#e0d4c8</span>
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Garis tepi card, album, tabel, divider</div>
@@ -1037,7 +1037,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div style="grid-column:1/-1">
                     <label class="f-lbl">Background Home (halaman utama)</label>
                     <div style="display:flex;align-items:center;gap:8px">
-                      <input type="color" id="theme-home" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <input type="color" id="theme-home" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px;outline:1px solid rgba(255,255,255,.15);outline-offset:1px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-home-val">#1a0f0a</span>
                       <span style="font-size:10px;color:var(--muted);font-style:italic">Warna background halaman Home</span>
                     </div>
@@ -3672,7 +3672,7 @@ function applyTheme(t){
   if(t.cream3){r.setProperty('--cream3',t.cream3);}
   if(t.white){r.setProperty('--white',t.white);}
   if(t.border){r.setProperty('--border',t.border);}
-  if(t.cardText){r.setProperty('--card-text',t.cardText);}
+  if(t.cardText){r.setProperty('--card-text',t.cardText);r.setProperty('--text',t.cardText);document.body.style.color=t.cardText;}
   if(t.text){r.setProperty('--text',t.text);document.body.style.color=t.text;}
   if(t.mid){r.setProperty('--mid',t.mid);}
   if(t.muted){r.setProperty('--muted',t.muted);}
