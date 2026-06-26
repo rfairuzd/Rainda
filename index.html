@@ -93,12 +93,12 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 .home-hero{padding:32px;border-bottom:0.5px solid var(--border-dark);position:relative;overflow:hidden}
 .home-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(196,160,96,.08) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(100,60,160,.06) 0%,transparent 50%)}
 .home-eyebrow{font-size:9px;color:rgba(196,160,96,.6);letter-spacing:5px;text-transform:uppercase;margin-bottom:12px;font-weight:300;position:relative}
-.home-title{font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--card-text);font-weight:300;font-style:italic;line-height:1.05;margin-bottom:8px;position:relative}
-.home-sub{font-size:10px;color:var(--card-text);opacity:.45;letter-spacing:3px;margin-bottom:28px;font-weight:300;position:relative}
+.home-title{font-family:'Cormorant Garamond',serif;font-size:52px;color:#f0eaff;font-weight:300;font-style:italic;line-height:1.05;margin-bottom:8px;position:relative}
+.home-sub{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:3px;margin-bottom:28px;font-weight:300;position:relative}
 .home-stats{display:flex;gap:0;margin-bottom:28px;position:relative}
 .home-stat{padding:0 24px 0 0;margin-right:24px;border-right:0.5px solid rgba(255,255,255,.08)}
 .home-stat:last-child{border-right:none}
-.home-stat-n{font-family:'Jost',sans-serif;font-size:30px;color:var(--gold);font-weight:200;line-height:1;font-variant-numeric:tabular-nums}
+.home-stat-n{font-family:'Jost',sans-serif;font-size:30px;color:#f0eaff;font-weight:200;line-height:1;font-variant-numeric:tabular-nums}
 .home-stat-l{font-size:8px;color:rgba(255,255,255,.25);letter-spacing:3px;text-transform:uppercase;margin-top:3px;font-weight:300}
 
 /* Countdown */
@@ -961,12 +961,14 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                 <!-- Preset themes -->
                 <div style="font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:300">Preset Tema</div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="theme-presets">
-                  <div class="theme-preset" data-theme="cokelat" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#1a0f0a;cursor:pointer;border:3px solid var(--gold);title='Cokelat (Default)'" title="Cokelat"></div>
-                  <div class="theme-preset" data-theme="hitam" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0a0a0a;cursor:pointer;border:2px solid #333" title="Hitam"></div>
-                  <div class="theme-preset" data-theme="navy" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0f1a2e;cursor:pointer;border:2px solid #1e3a5f" title="Navy"></div>
-                  <div class="theme-preset" data-theme="hijau" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0f1f0f;cursor:pointer;border:2px solid #2d5a2d" title="Hijau"></div>
-                  <div class="theme-preset" data-theme="ungu" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#1a0f2e;cursor:pointer;border:2px solid #4a2d8f" title="Ungu"></div>
-                  <div class="theme-preset" data-theme="rose" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#2e0f1a;cursor:pointer;border:2px solid #8f2d4a" title="Rose"></div>
+                  <div class="theme-preset" data-theme="cokelat" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#1a0f0a;cursor:pointer;border:3px solid var(--gold)" title="Cokelat (Default)"></div>
+                  <div class="theme-preset" data-theme="hitam" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#141210;cursor:pointer;border:2px solid #3a3530" title="Charcoal Ink"></div>
+                  <div class="theme-preset" data-theme="navy" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0d1520;cursor:pointer;border:2px solid #1e3050" title="Midnight Ink"></div>
+                  <div class="theme-preset" data-theme="hijau" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0e1a12;cursor:pointer;border:2px solid #284830" title="Forest Dusk"></div>
+                  <div class="theme-preset" data-theme="ungu" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#180f2a;cursor:pointer;border:2px solid #3d2470" title="Twilight"></div>
+                  <div class="theme-preset" data-theme="rose" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#28101a;cursor:pointer;border:2px solid #6e2a40" title="Dusty Rose"></div>
+                  <div class="theme-preset" data-theme="slate" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#141820;cursor:pointer;border:2px solid #2e3848" title="Slate Mist"></div>
+                  <div class="theme-preset" data-theme="caramel" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#251408;cursor:pointer;border:2px solid #7a4a20" title="Caramel"></div>
                 </div>
                 <!-- Custom colors -->
                 <div style="font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:300">Custom</div>
@@ -3602,12 +3604,22 @@ window.initCtrlLogo=initCtrlLogo;
 
 // ── TEMA WARNA ──
 var _themes={
-  cokelat:{dark:'#1a0f0a',dark2:'#2d1f15',gold:'#c4a060',gold2:'#d4b070',cream:'#f8f4ef',cream2:'#f0ebe4',sidebar:'#1a0f0a',white:'#ffffff',cardText:'#1a0f0a'},
-  hitam:{dark:'#0a0a0a',dark2:'#1a1a1a',gold:'#e0e0e0',gold2:'#ffffff',cream:'#f5f5f5',cream2:'#ebebeb',sidebar:'#0a0a0a',white:'#ffffff',text:'#0a0a0a'},
-  navy:{dark:'#0f1a2e',dark2:'#1e2f4a',gold:'#5b9bd5',gold2:'#7ab3e0',cream:'#f0f4f8',cream2:'#e4edf5',sidebar:'#0f1a2e',white:'#ffffff',text:'#0f1a2e'},
-  hijau:{dark:'#0f1f0f',dark2:'#1a3a1a',gold:'#4caf50',gold2:'#66bb6a',cream:'#f1f8f1',cream2:'#e4f5e4',sidebar:'#0f1f0f',white:'#ffffff',text:'#0f1f0f'},
-  ungu:{dark:'#1a0f2e',dark2:'#2d1f4a',gold:'#9c6fce',gold2:'#b48fe0',cream:'#f5f0ff',cream2:'#ede4ff',sidebar:'#1a0f2e',white:'#ffffff',text:'#1a0f2e'},
-  rose:{dark:'#2e0f1a',dark2:'#4a1f2e',gold:'#e06fa0',gold2:'#f08ab8',cream:'#fff0f5',cream2:'#ffe4ee',sidebar:'#2e0f1a',white:'#ffffff',text:'#2e0f1a'},
+  // 1. Cokelat — warm dark espresso (default)
+  cokelat:{dark:'#1a0f0a',dark2:'#2d1a0e',gold:'#c4a060',gold2:'#dbb878',cream:'#f8f4ef',cream2:'#ede7de',sidebar:'#1a0f0a',home:'#1a0f0a',white:'#ffffff',cardText:'#1a0f0a'},
+  // 2. Charcoal Ink — soft charcoal, muted warm gray accent
+  hitam:{dark:'#141210',dark2:'#232018',gold:'#b8a898',gold2:'#d4c8bc',cream:'#f5f3f0',cream2:'#ebe8e4',sidebar:'#141210',home:'#141210',white:'#faf9f8',cardText:'#1a1714'},
+  // 3. Midnight Ink — deep navy, copper gold accent, warm off-white
+  navy:{dark:'#0d1520',dark2:'#172030',gold:'#c8905a',gold2:'#e0aa72',cream:'#f4f1ec',cream2:'#e8e2d8',sidebar:'#0d1520',home:'#0d1520',white:'#faf8f5',cardText:'#0f1820'},
+  // 4. Forest Dusk — dark forest green, muted sage accent, linen cream
+  hijau:{dark:'#0e1a12',dark2:'#182a1e',gold:'#8aac80',gold2:'#a8c49c',cream:'#f2f5f0',cream2:'#e4ece0',sidebar:'#0e1a12',home:'#0e1a12',white:'#f8faf6',cardText:'#0f1a10'},
+  // 5. Twilight — deep plum, soft lavender accent, pale lilac cream
+  ungu:{dark:'#180f2a',dark2:'#281a3e',gold:'#a888d0',gold2:'#c4a8e4',cream:'#f4f0f8',cream2:'#ebe4f4',sidebar:'#180f2a',home:'#180f2a',white:'#faf8fc',cardText:'#1a1028'},
+  // 6. Dusty Rose — dark wine, antique rose accent, warm blush cream
+  rose:{dark:'#28101a',dark2:'#3e1a28',gold:'#c47a90',gold2:'#dea0b0',cream:'#faf0f2',cream2:'#f0e4e8',sidebar:'#28101a',home:'#28101a',white:'#fdf8f9',cardText:'#280f18'},
+  // 7. Slate Mist — cool dark slate, silver-blue accent, cool white
+  slate:{dark:'#141820',dark2:'#202838',gold:'#7a9ab8',gold2:'#9ab8d0',cream:'#f0f3f6',cream2:'#e4eaf0',sidebar:'#141820',home:'#141820',white:'#f6f8fa',cardText:'#141820'},
+  // 8. Caramel — rich warm caramel dark, honey gold, warm ivory
+  caramel:{dark:'#251408',dark2:'#3a2010',gold:'#d4922a',gold2:'#eeae48',cream:'#faf5ec',cream2:'#f0e8d8',sidebar:'#251408',home:'#251408',white:'#fdf9f2',cardText:'#1e1005'},
 };
 
 function applyTheme(t){
