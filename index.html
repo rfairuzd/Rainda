@@ -1015,7 +1015,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                       <input type="color" id="theme-card-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-card-text-val">#1a0f0a</span>
                     </div>
-                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks di atas card/kotak terang</div>
+                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks judul, nama album, timeline</div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Teks Halaman</label>
@@ -1023,7 +1023,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                       <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-text-val">#1a0f0a</span>
                     </div>
-                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks di atas background terang</div>
+                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks body halaman terang (album, timeline, dll)</div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Border / Garis</label>
@@ -1031,7 +1031,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                       <input type="color" id="theme-border" value="#e0d4c8" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
                       <span style="font-size:10px;color:var(--muted)" id="theme-border-val">#e0d4c8</span>
                     </div>
-                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Garis pembatas card, album, dll</div>
+                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Garis tepi card, album, tabel, divider</div>
                   </div>
                   <div style="grid-column:1/-1">
                     <label class="f-lbl">Background Home (halaman utama)</label>
@@ -3789,13 +3789,23 @@ function previewTheme(){
   var homeEl=document.getElementById('theme-home');
   var home=homeEl?homeEl.value||dark:dark;
   var whiteEl=document.getElementById('theme-white');
-  var white=whiteEl?whiteEl.value||'#ffffff':'#ffffff';
+  var white=whiteEl?whiteEl.value||cream:cream;
   var textEl2=document.getElementById('theme-card-text');
-  var cardText=textEl2?textEl2.value||'#1a0f0a':'#1a0f0a';
-  applyTheme({dark:dark,dark2:lightenHex(dark,15),gold:gold,gold2:lightenHex(gold,15),cream:cream,cream2:darkenHex(cream,8),sidebar:sidebar,home:home,white:white,cardText:cardText});
+  var cardText=textEl2?textEl2.value||dark:dark;
+  var textEl3=document.getElementById('theme-text');
+  var text=textEl3?textEl3.value||cardText:cardText;
+  var borderEl=document.getElementById('theme-border');
+  var border=borderEl?borderEl.value||darkenHex(cream,15):darkenHex(cream,15);
+  applyTheme({
+    dark:dark,dark2:lightenHex(dark,15),
+    gold:gold,gold2:lightenHex(gold,15),
+    cream:cream,cream2:darkenHex(cream,8),cream3:darkenHex(cream,16),
+    sidebar:sidebar,home:home,white:white,
+    cardText:cardText,text:text,border:border
+  });
 }
 document.addEventListener('DOMContentLoaded',function(){
-  ['dark','gold','cream','sidebar','home','white','card-text'].forEach(function(key){
+  ['dark','gold','cream','sidebar','home','white','card-text','text','border'].forEach(function(key){
     var inp=document.getElementById('theme-'+key);
     var val=document.getElementById('theme-'+key+'-val');
     if(inp&&val){
