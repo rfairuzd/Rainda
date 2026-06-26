@@ -1017,6 +1017,22 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                     </div>
                     <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks di atas card/kotak terang</div>
                   </div>
+                  <div>
+                    <label class="f-lbl">Warna Teks Halaman</label>
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <span style="font-size:10px;color:var(--muted)" id="theme-text-val">#1a0f0a</span>
+                    </div>
+                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Teks di atas background terang</div>
+                  </div>
+                  <div>
+                    <label class="f-lbl">Warna Border / Garis</label>
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <input type="color" id="theme-border" value="#e0d4c8" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+                      <span style="font-size:10px;color:var(--muted)" id="theme-border-val">#e0d4c8</span>
+                    </div>
+                    <div style="font-size:9px;color:var(--muted);margin-top:3px;font-weight:300;font-style:italic">Garis pembatas card, album, dll</div>
+                  </div>
                   <div style="grid-column:1/-1">
                     <label class="f-lbl">Background Home (halaman utama)</label>
                     <div style="display:flex;align-items:center;gap:8px">
@@ -3604,14 +3620,22 @@ window.initCtrlLogo=initCtrlLogo;
 
 // ── TEMA WARNA ──
 var _themes={
-  cokelat:{dark:'#1a0f0a',dark2:'#2d1a0e',gold:'#c4a060',gold2:'#dbb878',cream:'#f8f4ef',cream2:'#ede7de',cream3:'#ddd4c8',white:'#ffffff',border:'#ddd0c0',sidebar:'#1a0f0a',home:'#1a0f0a',cardText:'#1a0f0a',mid:'#7a5a3a',muted:'#a08a70'},
-  hitam:{dark:'#1c1814',dark2:'#2e2820',gold:'#c0a882',gold2:'#d8c4a4',cream:'#eee8e0',cream2:'#e0d8cc',cream3:'#cec4b8',white:'#f0ebe4',border:'#c8bcac',sidebar:'#1c1814',home:'#1c1814',cardText:'#1c1814',mid:'#7a6e60',muted:'#9a8e80'},
-  navy:{dark:'#0d1520',dark2:'#172030',gold:'#c8905a',gold2:'#e0aa72',cream:'#ede8e0',cream2:'#dfd8cc',cream3:'#cec4b4',white:'#f0ebe2',border:'#c4b8a4',sidebar:'#0d1520',home:'#0d1520',cardText:'#0f1820',mid:'#6a5a48',muted:'#8a7a68'},
-  hijau:{dark:'#0e1a12',dark2:'#182a1e',gold:'#6ab870',gold2:'#90d098',cream:'#e8f0e8',cream2:'#d8ecd8',cream3:'#c4dcc4',white:'#eef5ee',border:'#b8d8b8',sidebar:'#0e1a12',home:'#0e1a12',cardText:'#0e1a10',mid:'#4a7a50',muted:'#6a9a70'},
-  ungu:{dark:'#180f2a',dark2:'#281a3e',gold:'#a060e0',gold2:'#c08af8',cream:'#ede8f8',cream2:'#e0d4f4',cream3:'#cebcec',white:'#f2eeff',border:'#c4b0e4',sidebar:'#180f2a',home:'#180f2a',cardText:'#1a0e28',mid:'#7050a0',muted:'#9070c0'},
-  rose:{dark:'#28101a',dark2:'#3e1a28',gold:'#d05880',gold2:'#ec7a9c',cream:'#f4e8ec',cream2:'#ecd8de',cream3:'#dcc0c8',white:'#faeef2',border:'#d8b0bc',sidebar:'#28101a',home:'#28101a',cardText:'#280e18',mid:'#8a4060',muted:'#aa6080'},
-  slate:{dark:'#101820',dark2:'#182430',gold:'#4898d0',gold2:'#70b8f0',cream:'#e4ecf4',cream2:'#d4e4f0',cream3:'#bcd4e8',white:'#eef4fa',border:'#b0cce0',sidebar:'#101820',home:'#101820',cardText:'#101820',mid:'#4870a0',muted:'#6090b8'},
-  caramel:{dark:'#251408',dark2:'#3a2010',gold:'#d4922a',gold2:'#f0b040',cream:'#f4ece0',cream2:'#ece0cc',cream3:'#dccca8',white:'#fdf6e8',border:'#d8c090',sidebar:'#251408',home:'#251408',cardText:'#1e1005',mid:'#8a6020',muted:'#aa8040'},
+  // 1. Cokelat — warm espresso (default)
+  cokelat:{dark:'#1a0f0a',dark2:'#2d1a0e',gold:'#c4a060',gold2:'#dbb878',cream:'#f8f4ef',cream2:'#ede7de',cream3:'#ddd4c8',white:'#ffffff',border:'#ddd0c0',sidebar:'#1a0f0a',home:'#1a0f0a',cardText:'#1a0f0a',text:'#1a0f0a',mid:'#7a5a3a',muted:'#a08a70'},
+  // 2. Charcoal — charcoal gelap, bg abu pekat, card abu medium
+  hitam:{dark:'#181614',dark2:'#262220',gold:'#d4b896',gold2:'#e8d0b0',cream:'#c8c0b8',cream2:'#b8b0a8',cream3:'#a8a098',white:'#d8d0c8',border:'#908880',sidebar:'#181614',home:'#181614',cardText:'#181614',text:'#181614',mid:'#504844',muted:'#706860'},
+  // 3. Midnight — navy gelap, bg biru-tua pekat, card navy medium
+  navy:{dark:'#0a1020',dark2:'#141c30',gold:'#d4945a',gold2:'#eeaa70',cream:'#1e2e50',cream2:'#182444',cream3:'#142038',white:'#263858',border:'#304878',sidebar:'#0a1020',home:'#0a1020',cardText:'#e8ddd0',text:'#e8ddd0',mid:'#8090b8',muted:'#6070a0'},
+  // 4. Forest — forest gelap, bg hijau tua pekat, card hijau medium
+  hijau:{dark:'#0c1810',dark2:'#162410',gold:'#58c060',gold2:'#78d880',cream:'#1a3020',cream2:'#142818',cream3:'#102014',white:'#223828',border:'#305838',sidebar:'#0c1810',home:'#0c1810',cardText:'#d0ecd8',text:'#d0ecd8',mid:'#60a870',muted:'#489858'},
+  // 5. Twilight — plum gelap, bg ungu pekat, card ungu medium
+  ungu:{dark:'#140c28',dark2:'#201440',gold:'#b870f8',gold2:'#cc98ff',cream:'#2a1858',cream2:'#201248',cream3:'#180e38',white:'#341e68',border:'#5030a0',sidebar:'#140c28',home:'#140c28',cardText:'#ecdeff',text:'#ecdeff',mid:'#9060d0',muted:'#7050b0'},
+  // 6. Dusty Rose — wine gelap, bg rose pekat, card rose medium
+  rose:{dark:'#220c18',dark2:'#381428',gold:'#f06080',gold2:'#ff84a0',cream:'#5a1e38',cream2:'#4a1830',cream3:'#3a1228',white:'#6e2848',border:'#9e4870',sidebar:'#220c18',home:'#220c18',cardText:'#ffdde8',text:'#ffdde8',mid:'#c05070',muted:'#a04060'},
+  // 7. Slate — slate gelap, bg biru-abu pekat, card slate medium
+  slate:{dark:'#0c1420',dark2:'#142030',gold:'#50a0e0',gold2:'#74bef8',cream:'#1a2c44',cream2:'#142238',cream3:'#101c30',white:'#22364e',border:'#305878',sidebar:'#0c1420',home:'#0c1420',cardText:'#cce0f8',text:'#cce0f8',mid:'#4080b8',muted:'#3068a0'},
+  // 8. Caramel — caramel gelap, bg amber pekat, card caramel medium
+  caramel:{dark:'#201008',dark2:'#321808',gold:'#f0a030',gold2:'#ffc050',cream:'#6a3e10',cream2:'#5a3408',cream3:'#4a2a04',white:'#7e4e18',border:'#b07030',sidebar:'#201008',home:'#201008',cardText:'#ffefd0',text:'#ffefd0',mid:'#d08030',muted:'#b06020'},
 };
 
 function applyTheme(t){
@@ -3640,6 +3664,7 @@ function applyTheme(t){
   if(t.white){r.setProperty('--white',t.white);}
   if(t.border){r.setProperty('--border',t.border);}
   if(t.cardText){r.setProperty('--card-text',t.cardText);}
+  if(t.text){r.setProperty('--text',t.text);document.body.style.color=t.text;}
   if(t.mid){r.setProperty('--mid',t.mid);}
   if(t.muted){r.setProperty('--muted',t.muted);}
   // body/main background
@@ -3672,6 +3697,8 @@ function applyTheme(t){
     ['theme-home',homeBg],
     ['theme-white',t.white||'#ffffff'],
     ['theme-card-text',t.cardText||'#1a0f0a'],
+    ['theme-text',t.text||t.cardText||'#1a0f0a'],
+    ['theme-border',t.border||'#e0d4c8'],
   ];
   pairs.forEach(function(p){
     var el=document.getElementById(p[0]);if(el)el.value=p[1];
@@ -3711,11 +3738,16 @@ function saveTheme(){
   var white=whiteEl?whiteEl.value||'#ffffff':'#ffffff';
   var textEl2=document.getElementById('theme-card-text');
   var cardText=textEl2?textEl2.value||'#1a0f0a':'#1a0f0a';
+  var textEl3=document.getElementById('theme-text');
+  var text=textEl3?textEl3.value||cardText:cardText;
+  var borderEl=document.getElementById('theme-border');
+  var border=borderEl?borderEl.value||'#e0d4c8':'#e0d4c8';
   var t={
     dark:dark,dark2:lightenHex(dark,15),
     gold:gold,gold2:lightenHex(gold,15),
-    cream:cream,cream2:darkenHex(cream,8),
-    sidebar:sidebar,home:home,white:white,cardText:cardText
+    cream:cream,cream2:darkenHex(cream,8),cream3:darkenHex(cream,16),
+    sidebar:sidebar,home:home,white:white,cardText:cardText,
+    text:text,border:border
   };
   applyTheme(t);
   _saveThemeToFirebase(t);
