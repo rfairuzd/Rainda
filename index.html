@@ -973,7 +973,11 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   <div class="theme-preset" data-theme="ungu" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#180f2a;cursor:pointer;border:2px solid #a060e0" title="Twilight"></div>
                   <div class="theme-preset" data-theme="rose" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#28101a;cursor:pointer;border:2px solid #d05880" title="Dusty Rose"></div>
                   <div class="theme-preset" data-theme="slate" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#101820;cursor:pointer;border:2px solid #4898d0" title="Slate"></div>
-                  <div class="theme-preset" data-theme="caramel" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#251408;cursor:pointer;border:2px solid #d4922a" title="Caramel"></div>
+                  <div class="theme-preset" data-theme="caramel" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#201008;cursor:pointer;border:2px solid #f0a030" title="Caramel"></div>
+                  <div class="theme-preset" data-theme="neon" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#020e14;cursor:pointer;border:2px solid #00e5ff" title="Neon Dusk"></div>
+                  <div class="theme-preset" data-theme="elektrik" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#0a0618;cursor:pointer;border:2px solid #8040ff" title="Electric Violet"></div>
+                  <div class="theme-preset" data-theme="sunset" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#180c04;cursor:pointer;border:2px solid #ff6020" title="Sunset"></div>
+                  <div class="theme-preset" data-theme="emerald" onclick="applyThemePreset(this)" style="width:32px;height:32px;border-radius:50%;background:#020e08;cursor:pointer;border:2px solid #00e878" title="Emerald"></div>
                 </div>
                 <!-- Custom colors -->
                 <div style="font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:300">Custom</div>
@@ -3628,27 +3632,40 @@ var _themes={
   // 1. Cokelat — warm espresso (default)
   cokelat:{dark:'#1a0f0a',dark2:'#2d1a0e',gold:'#c4a060',gold2:'#dbb878',cream:'#f8f4ef',cream2:'#ede7de',cream3:'#ddd4c8',white:'#ffffff',border:'#ddd0c0',sidebar:'#1a0f0a',home:'#1a0f0a',cardText:'#1a0f0a',text:'#1a0f0a',mid:'#7a5a3a',muted:'#a08a70',
     homeTitle:'#f0eadf',homeEyebrow:'rgba(196,160,96,.75)',homeSub:'rgba(255,255,255,.28)',homeStat:'rgba(255,255,255,.28)'},
-  // 2. Burgundy — wine dark, rose-gold accent, warm champagne bg
-  hitam:{dark:'#1a0812',dark2:'#2e1020',gold:'#c8748a',gold2:'#e090a8',cream:'#f5eaee',cream2:'#eadade',cream3:'#d8c4ca',white:'#fff0f4',border:'#d0b0b8',sidebar:'#1a0812',home:'#1a0812',cardText:'#1a0812',text:'#1a0812',mid:'#8a4860',muted:'#a87080',
-    homeTitle:'#fce8f0',homeEyebrow:'rgba(200,116,138,.85)',homeSub:'rgba(255,230,240,.3)',homeStat:'rgba(255,230,240,.3)'},
-  // 3. Midnight — deep navy, warm copper accent, warm parchment bg
+  // 2. Burgundy — wine dark, rose-gold accent, deep wine bg
+  hitam:{dark:'#1a0812',dark2:'#2e1020',gold:'#c8748a',gold2:'#e090a8',cream:'#4a1830',cream2:'#3c1228',cream3:'#2e0e20',white:'#5e2040',border:'#8a3858',sidebar:'#1a0812',home:'#1a0812',cardText:'#fce8f0',text:'#fce8f0',mid:'#e090b0',muted:'#b06080',
+    homeTitle:'#fce8f0',homeEyebrow:'rgba(200,116,138,.85)',homeSub:'rgba(255,220,235,.3)',homeStat:'rgba(255,220,235,.3)'},
+  // 3. Midnight — deep navy, warm copper accent, deep navy bg
   navy:{dark:'#0a1020',dark2:'#141c30',gold:'#d4945a',gold2:'#eeaa70',cream:'#1e2e50',cream2:'#182444',cream3:'#142038',white:'#263858',border:'#304878',sidebar:'#0a1020',home:'#0a1020',cardText:'#e8ddd0',text:'#e8ddd0',mid:'#8090b8',muted:'#6878a8',
     homeTitle:'#d8e8ff',homeEyebrow:'rgba(212,148,90,.85)',homeSub:'rgba(180,210,255,.35)',homeStat:'rgba(180,210,255,.35)'},
   // 4. Forest — dark forest, vivid sage accent, deep green bg
   hijau:{dark:'#0c1810',dark2:'#162410',gold:'#58c060',gold2:'#78d880',cream:'#1a3020',cream2:'#142818',cream3:'#102014',white:'#223828',border:'#305838',sidebar:'#0c1810',home:'#0c1810',cardText:'#d0ecd8',text:'#d0ecd8',mid:'#60a870',muted:'#509060',
     homeTitle:'#c8f0d0',homeEyebrow:'rgba(88,192,96,.85)',homeSub:'rgba(180,255,190,.3)',homeStat:'rgba(180,255,190,.3)'},
-  // 5. Twilight — deep plum, vivid violet accent, deep purple bg — teks terang kontras
+  // 5. Twilight — deep plum, vivid violet accent, deep purple bg
   ungu:{dark:'#140c28',dark2:'#201440',gold:'#b870f8',gold2:'#cc98ff',cream:'#2a1858',cream2:'#201248',cream3:'#180e38',white:'#341e68',border:'#5030a0',sidebar:'#140c28',home:'#140c28',cardText:'#f0e4ff',text:'#f0e4ff',mid:'#c090f0',muted:'#9060c8',
     homeTitle:'#e8d0ff',homeEyebrow:'rgba(184,112,248,.85)',homeSub:'rgba(220,180,255,.32)',homeStat:'rgba(220,180,255,.32)'},
-  // 6. Dusty Rose — deep wine, vivid rose accent, deep rose bg — teks terang kontras
+  // 6. Dusty Rose — deep wine, vivid rose accent, deep rose bg
   rose:{dark:'#220c18',dark2:'#381428',gold:'#f06080',gold2:'#ff84a0',cream:'#5a1e38',cream2:'#4a1830',cream3:'#3a1228',white:'#6e2848',border:'#9e4870',sidebar:'#220c18',home:'#220c18',cardText:'#ffe8f0',text:'#ffe8f0',mid:'#f080a0',muted:'#c05878',
     homeTitle:'#ffd0e0',homeEyebrow:'rgba(240,96,128,.85)',homeSub:'rgba(255,200,220,.32)',homeStat:'rgba(255,200,220,.32)'},
   // 7. Slate — cool dark slate, sky-blue accent, deep slate bg
   slate:{dark:'#0c1420',dark2:'#142030',gold:'#50a0e0',gold2:'#74bef8',cream:'#1a2c44',cream2:'#142238',cream3:'#101c30',white:'#22364e',border:'#305878',sidebar:'#0c1420',home:'#0c1420',cardText:'#cce0f8',text:'#cce0f8',mid:'#4080b8',muted:'#3870a8',
     homeTitle:'#c8e4ff',homeEyebrow:'rgba(80,160,224,.85)',homeSub:'rgba(160,210,255,.32)',homeStat:'rgba(160,210,255,.32)'},
-  // 8. Caramel — warm caramel dark, amber accent, deep amber bg — teks terang kontras
-  caramel:{dark:'#201008',dark2:'#321808',gold:'#f0a030',gold2:'#ffc050',cream:'#6a3e10',cream2:'#5a3408',cream3:'#4a2a04',white:'#7e4e18',border:'#b07030',sidebar:'#201008',home:'#201008',cardText:'#fff0d0',text:'#fff0d0',mid:'#f0b050',muted:'#c07828',
+  // 8. Caramel — warm caramel dark, amber accent, deep amber bg — teks putih kontras
+  caramel:{dark:'#201008',dark2:'#321808',gold:'#f0a030',gold2:'#ffc050',cream:'#6a3e10',cream2:'#5a3408',cream3:'#4a2a04',white:'#7e4e18',border:'#b07030',sidebar:'#201008',home:'#201008',cardText:'#ffffff',text:'#ffffff',mid:'#ffc060',muted:'#e09040',
     homeTitle:'#ffead0',homeEyebrow:'rgba(240,160,48,.85)',homeSub:'rgba(255,220,160,.32)',homeStat:'rgba(255,220,160,.32)'},
+  // ── VIBRANT ──
+  // 9. Neon Dusk — deep black, electric cyan accent, dark teal bg
+  neon:{dark:'#020e14',dark2:'#041c28',gold:'#00e5ff',gold2:'#80f0ff',cream:'#041c28',cream2:'#031420',cream3:'#020e18',white:'#063040',border:'#0a5878',sidebar:'#020e14',home:'#020e14',cardText:'#b0f8ff',text:'#b0f8ff',mid:'#00c8e0',muted:'#0090b0',
+    homeTitle:'#80f8ff',homeEyebrow:'rgba(0,229,255,.9)',homeSub:'rgba(128,248,255,.35)',homeStat:'rgba(128,248,255,.35)'},
+  // 10. Electric Violet — very dark, electric purple accent, deep indigo bg
+  elektrik:{dark:'#0a0618',dark2:'#120c28',gold:'#8040ff',gold2:'#a870ff',cream:'#180c40',cream2:'#120830',cream3:'#0c0620',white:'#220e58',border:'#4020a0',sidebar:'#0a0618',home:'#0a0618',cardText:'#e8d0ff',text:'#e8d0ff',mid:'#9050ff',muted:'#6030c0',
+    homeTitle:'#d0a8ff',homeEyebrow:'rgba(128,64,255,.95)',homeSub:'rgba(200,160,255,.35)',homeStat:'rgba(200,160,255,.35)'},
+  // 11. Sunset — dark charcoal, vivid orange-red accent, deep ember bg
+  sunset:{dark:'#180c04',dark2:'#281408',gold:'#ff6020',gold2:'#ff8840',cream:'#3a1808',cream2:'#2e1004',cream3:'#220c02',white:'#4e2010',border:'#903010',sidebar:'#180c04',home:'#180c04',cardText:'#ffe8d0',text:'#ffe8d0',mid:'#ff7030',muted:'#cc4010',
+    homeTitle:'#ffd0a8',homeEyebrow:'rgba(255,96,32,.95)',homeSub:'rgba(255,200,150,.35)',homeStat:'rgba(255,200,150,.35)'},
+  // 12. Emerald — very dark, vivid emerald accent, deep jade bg
+  emerald:{dark:'#020e08',dark2:'#041a10',gold:'#00e878',gold2:'#40ffa0',cream:'#082818',cream2:'#061e10',cream3:'#04160c',white:'#0c3820',border:'#106830',sidebar:'#020e08',home:'#020e08',cardText:'#b0ffe0',text:'#b0ffe0',mid:'#00d068',muted:'#009848',
+    homeTitle:'#80ffc0',homeEyebrow:'rgba(0,232,120,.9)',homeSub:'rgba(128,255,192,.32)',homeStat:'rgba(128,255,192,.32)'},
 };
 
 function applyTheme(t){
