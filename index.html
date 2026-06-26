@@ -21,6 +21,7 @@
   --mid:#6a4a30;--muted:#9a8a7a;--accent:#c4855a;
   --border:#e0d4c8;--border-dark:rgba(255,255,255,.08);
   --white:#fff;--text:#1a0f0a;--card-text:#1a0f0a;--cal-day:rgba(0,0,0,0.4);
+  --home-title:#f0eaff;--home-eyebrow:rgba(196,160,96,.7);--home-sub:rgba(255,255,255,.28);--home-stat:rgba(255,255,255,.28);
   --sw:220px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -92,14 +93,14 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 #p-home{background:var(--home-bg,var(--dark));overflow-y:auto}
 .home-hero{padding:32px;border-bottom:0.5px solid var(--border-dark);position:relative;overflow:hidden}
 .home-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(196,160,96,.08) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(100,60,160,.06) 0%,transparent 50%)}
-.home-eyebrow{font-size:9px;color:rgba(196,160,96,.6);letter-spacing:5px;text-transform:uppercase;margin-bottom:12px;font-weight:300;position:relative}
-.home-title{font-family:'Cormorant Garamond',serif;font-size:52px;color:#f0eaff;font-weight:300;font-style:italic;line-height:1.05;margin-bottom:8px;position:relative}
-.home-sub{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:3px;margin-bottom:28px;font-weight:300;position:relative}
+.home-eyebrow{font-size:9px;color:var(--home-eyebrow);letter-spacing:5px;text-transform:uppercase;margin-bottom:12px;font-weight:300;position:relative}
+.home-title{font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--home-title);font-weight:300;font-style:italic;line-height:1.05;margin-bottom:8px;position:relative}
+.home-sub{font-size:10px;color:var(--home-sub);letter-spacing:3px;margin-bottom:28px;font-weight:300;position:relative}
 .home-stats{display:flex;gap:0;margin-bottom:28px;position:relative}
 .home-stat{padding:0 24px 0 0;margin-right:24px;border-right:0.5px solid rgba(255,255,255,.08)}
 .home-stat:last-child{border-right:none}
-.home-stat-n{font-family:'Jost',sans-serif;font-size:30px;color:#f0eaff;font-weight:200;line-height:1;font-variant-numeric:tabular-nums}
-.home-stat-l{font-size:8px;color:rgba(255,255,255,.25);letter-spacing:3px;text-transform:uppercase;margin-top:3px;font-weight:300}
+.home-stat-n{font-family:'Jost',sans-serif;font-size:30px;color:var(--home-title);font-weight:200;line-height:1;font-variant-numeric:tabular-nums}
+.home-stat-l{font-size:8px;color:var(--home-stat);letter-spacing:3px;text-transform:uppercase;margin-top:3px;font-weight:300}
 
 /* Countdown */
 .countdown-card{background:rgba(255,255,255,.04);border:0.5px solid rgba(196,160,96,.2);border-radius:14px;padding:14px 16px;margin-bottom:14px}
@@ -109,7 +110,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 .cd-boxes{}
 .cd-box{background:rgba(255,255,255,.06);border:0.5px solid rgba(196,160,96,.15);border-radius:8px;padding:8px 4px;text-align:center}
 .cd-n{font-family:'Jost',sans-serif;font-size:22px;color:var(--gold2);line-height:1;font-weight:300;font-variant-numeric:tabular-nums}
-.cd-l{font-size:7px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;margin-top:3px;font-weight:300}
+.cd-l{font-size:7px;color:var(--home-stat);letter-spacing:1px;text-transform:uppercase;margin-top:3px;font-weight:300}
 
 /* Music mini */
 .music-mini{background:rgba(255,255,255,.04);border:0.5px solid var(--border-dark);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:24px;cursor:pointer;transition:background .2s;position:relative}
@@ -131,7 +132,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 
 /* Recent albums */
 .home-recent{padding:24px 32px}
-.home-sec-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:#f0eaff;font-weight:300;font-style:italic;margin-bottom:16px}
+.home-sec-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--home-title);font-weight:300;font-style:italic;margin-bottom:16px}
 .home-album-scroll{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .home-alb{border-radius:12px;overflow:hidden;cursor:pointer;border:0.5px solid rgba(255,255,255,.06);transition:transform .2s}
 .home-alb:hover{transform:translateY(-3px)}
@@ -3621,21 +3622,29 @@ window.initCtrlLogo=initCtrlLogo;
 // ── TEMA WARNA ──
 var _themes={
   // 1. Cokelat — warm espresso (default)
-  cokelat:{dark:'#1a0f0a',dark2:'#2d1a0e',gold:'#c4a060',gold2:'#dbb878',cream:'#f8f4ef',cream2:'#ede7de',cream3:'#ddd4c8',white:'#ffffff',border:'#ddd0c0',sidebar:'#1a0f0a',home:'#1a0f0a',cardText:'#1a0f0a',text:'#1a0f0a',mid:'#7a5a3a',muted:'#a08a70'},
-  // 2. Charcoal — charcoal gelap, bg abu pekat, card abu medium
-  hitam:{dark:'#181614',dark2:'#262220',gold:'#d4b896',gold2:'#e8d0b0',cream:'#c8c0b8',cream2:'#b8b0a8',cream3:'#a8a098',white:'#d8d0c8',border:'#908880',sidebar:'#181614',home:'#181614',cardText:'#181614',text:'#181614',mid:'#504844',muted:'#706860'},
-  // 3. Midnight — navy gelap, bg biru-tua pekat, card navy medium
-  navy:{dark:'#0a1020',dark2:'#141c30',gold:'#d4945a',gold2:'#eeaa70',cream:'#1e2e50',cream2:'#182444',cream3:'#142038',white:'#263858',border:'#304878',sidebar:'#0a1020',home:'#0a1020',cardText:'#e8ddd0',text:'#e8ddd0',mid:'#8090b8',muted:'#6070a0'},
-  // 4. Forest — forest gelap, bg hijau tua pekat, card hijau medium
-  hijau:{dark:'#0c1810',dark2:'#162410',gold:'#58c060',gold2:'#78d880',cream:'#1a3020',cream2:'#142818',cream3:'#102014',white:'#223828',border:'#305838',sidebar:'#0c1810',home:'#0c1810',cardText:'#d0ecd8',text:'#d0ecd8',mid:'#60a870',muted:'#489858'},
-  // 5. Twilight — plum gelap, bg ungu pekat, card ungu medium
-  ungu:{dark:'#140c28',dark2:'#201440',gold:'#b870f8',gold2:'#cc98ff',cream:'#2a1858',cream2:'#201248',cream3:'#180e38',white:'#341e68',border:'#5030a0',sidebar:'#140c28',home:'#140c28',cardText:'#ecdeff',text:'#ecdeff',mid:'#9060d0',muted:'#7050b0'},
-  // 6. Dusty Rose — wine gelap, bg rose pekat, card rose medium
-  rose:{dark:'#220c18',dark2:'#381428',gold:'#f06080',gold2:'#ff84a0',cream:'#5a1e38',cream2:'#4a1830',cream3:'#3a1228',white:'#6e2848',border:'#9e4870',sidebar:'#220c18',home:'#220c18',cardText:'#ffdde8',text:'#ffdde8',mid:'#c05070',muted:'#a04060'},
-  // 7. Slate — slate gelap, bg biru-abu pekat, card slate medium
-  slate:{dark:'#0c1420',dark2:'#142030',gold:'#50a0e0',gold2:'#74bef8',cream:'#1a2c44',cream2:'#142238',cream3:'#101c30',white:'#22364e',border:'#305878',sidebar:'#0c1420',home:'#0c1420',cardText:'#cce0f8',text:'#cce0f8',mid:'#4080b8',muted:'#3068a0'},
-  // 8. Caramel — caramel gelap, bg amber pekat, card caramel medium
-  caramel:{dark:'#201008',dark2:'#321808',gold:'#f0a030',gold2:'#ffc050',cream:'#6a3e10',cream2:'#5a3408',cream3:'#4a2a04',white:'#7e4e18',border:'#b07030',sidebar:'#201008',home:'#201008',cardText:'#ffefd0',text:'#ffefd0',mid:'#d08030',muted:'#b06020'},
+  cokelat:{dark:'#1a0f0a',dark2:'#2d1a0e',gold:'#c4a060',gold2:'#dbb878',cream:'#f8f4ef',cream2:'#ede7de',cream3:'#ddd4c8',white:'#ffffff',border:'#ddd0c0',sidebar:'#1a0f0a',home:'#1a0f0a',cardText:'#1a0f0a',text:'#1a0f0a',mid:'#7a5a3a',muted:'#a08a70',
+    homeTitle:'#f0eadf',homeEyebrow:'rgba(196,160,96,.75)',homeSub:'rgba(255,255,255,.28)',homeStat:'rgba(255,255,255,.28)'},
+  // 2. Charcoal
+  hitam:{dark:'#181614',dark2:'#262220',gold:'#d4b896',gold2:'#e8d0b0',cream:'#c8c0b8',cream2:'#b8b0a8',cream3:'#a8a098',white:'#d8d0c8',border:'#908880',sidebar:'#181614',home:'#181614',cardText:'#181614',text:'#181614',mid:'#504844',muted:'#706860',
+    homeTitle:'#f0ece8',homeEyebrow:'rgba(212,184,150,.8)',homeSub:'rgba(255,255,255,.3)',homeStat:'rgba(255,255,255,.3)'},
+  // 3. Midnight
+  navy:{dark:'#0a1020',dark2:'#141c30',gold:'#d4945a',gold2:'#eeaa70',cream:'#1e2e50',cream2:'#182444',cream3:'#142038',white:'#263858',border:'#304878',sidebar:'#0a1020',home:'#0a1020',cardText:'#e8ddd0',text:'#e8ddd0',mid:'#8090b8',muted:'#6070a0',
+    homeTitle:'#d8e8ff',homeEyebrow:'rgba(212,148,90,.85)',homeSub:'rgba(180,210,255,.35)',homeStat:'rgba(180,210,255,.35)'},
+  // 4. Forest
+  hijau:{dark:'#0c1810',dark2:'#162410',gold:'#58c060',gold2:'#78d880',cream:'#1a3020',cream2:'#142818',cream3:'#102014',white:'#223828',border:'#305838',sidebar:'#0c1810',home:'#0c1810',cardText:'#d0ecd8',text:'#d0ecd8',mid:'#60a870',muted:'#489858',
+    homeTitle:'#c8f0d0',homeEyebrow:'rgba(88,192,96,.85)',homeSub:'rgba(180,255,190,.3)',homeStat:'rgba(180,255,190,.3)'},
+  // 5. Twilight
+  ungu:{dark:'#140c28',dark2:'#201440',gold:'#b870f8',gold2:'#cc98ff',cream:'#2a1858',cream2:'#201248',cream3:'#180e38',white:'#341e68',border:'#5030a0',sidebar:'#140c28',home:'#140c28',cardText:'#ecdeff',text:'#ecdeff',mid:'#9060d0',muted:'#7050b0',
+    homeTitle:'#e8d0ff',homeEyebrow:'rgba(184,112,248,.85)',homeSub:'rgba(220,180,255,.32)',homeStat:'rgba(220,180,255,.32)'},
+  // 6. Dusty Rose
+  rose:{dark:'#220c18',dark2:'#381428',gold:'#f06080',gold2:'#ff84a0',cream:'#5a1e38',cream2:'#4a1830',cream3:'#3a1228',white:'#6e2848',border:'#9e4870',sidebar:'#220c18',home:'#220c18',cardText:'#ffdde8',text:'#ffdde8',mid:'#c05070',muted:'#a04060',
+    homeTitle:'#ffd0e0',homeEyebrow:'rgba(240,96,128,.85)',homeSub:'rgba(255,200,220,.32)',homeStat:'rgba(255,200,220,.32)'},
+  // 7. Slate
+  slate:{dark:'#0c1420',dark2:'#142030',gold:'#50a0e0',gold2:'#74bef8',cream:'#1a2c44',cream2:'#142238',cream3:'#101c30',white:'#22364e',border:'#305878',sidebar:'#0c1420',home:'#0c1420',cardText:'#cce0f8',text:'#cce0f8',mid:'#4080b8',muted:'#3068a0',
+    homeTitle:'#c8e4ff',homeEyebrow:'rgba(80,160,224,.85)',homeSub:'rgba(160,210,255,.32)',homeStat:'rgba(160,210,255,.32)'},
+  // 8. Caramel
+  caramel:{dark:'#201008',dark2:'#321808',gold:'#f0a030',gold2:'#ffc050',cream:'#6a3e10',cream2:'#5a3408',cream3:'#4a2a04',white:'#7e4e18',border:'#b07030',sidebar:'#201008',home:'#201008',cardText:'#ffefd0',text:'#ffefd0',mid:'#d08030',muted:'#b06020',
+    homeTitle:'#ffead0',homeEyebrow:'rgba(240,160,48,.85)',homeSub:'rgba(255,220,160,.32)',homeStat:'rgba(255,220,160,.32)'},
 };
 
 function applyTheme(t){
@@ -3667,6 +3676,11 @@ function applyTheme(t){
   if(t.text){r.setProperty('--text',t.text);document.body.style.color=t.text;}
   if(t.mid){r.setProperty('--mid',t.mid);}
   if(t.muted){r.setProperty('--muted',t.muted);}
+  // Home page text colors
+  if(t.homeTitle){r.setProperty('--home-title',t.homeTitle);}
+  if(t.homeEyebrow){r.setProperty('--home-eyebrow',t.homeEyebrow);}
+  if(t.homeSub){r.setProperty('--home-sub',t.homeSub);}
+  if(t.homeStat){r.setProperty('--home-stat',t.homeStat);}
   // body/main background
   if(t.cream){
     document.body.style.background=t.cream;
