@@ -22,6 +22,7 @@
   --border:#e0d4c8;--border-dark:rgba(255,255,255,.08);
   --white:#fff;--text:#1a0f0a;--card-text:#1a0f0a;--cal-day:rgba(0,0,0,0.4);
   --home-title:#f0eaff;--home-eyebrow:rgba(196,160,96,.7);--home-sub:rgba(255,255,255,.28);--home-stat:rgba(255,255,255,.28);
+  --ctrl-border:rgba(255,255,255,.15);
   --sw:220px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -984,35 +985,35 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
                   <div>
                     <label class="f-lbl">Warna Gelap</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-dark" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-dark-val">#1a0f0a</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Aksen</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-gold" value="#c4a060" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-gold-val">#c4a060</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Background Terang</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-cream" value="#f8f4ef" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-cream-val">#f8f4ef</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Sidebar</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-sidebar" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-sidebar-val">#1a0f0a</span>
                     </div>
                   </div>
                   <div>
                     <label class="f-lbl">Warna Card / Kotak</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-white" value="#ffffff" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-white-val">#ffffff</span>
                     </div>
@@ -1020,7 +1021,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   </div>
                   <div>
                     <label class="f-lbl">Warna Teks Card</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-card-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-card-text-val">#1a0f0a</span>
                     </div>
@@ -1028,7 +1029,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   </div>
                   <div>
                     <label class="f-lbl">Warna Teks Halaman</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-text" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-text-val">#1a0f0a</span>
                     </div>
@@ -1036,7 +1037,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   </div>
                   <div>
                     <label class="f-lbl">Warna Border / Garis</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-border" value="#e0d4c8" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-border-val">#e0d4c8</span>
                     </div>
@@ -1044,7 +1045,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
                   </div>
                   <div style="grid-column:1/-1">
                     <label class="f-lbl">Background Home (halaman utama)</label>
-                    <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(255,255,255,.04);border:1px solid var(--ctrl-border);border-radius:10px">
                       <input type="color" id="theme-home" value="#1a0f0a" style="width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none">
                       <span style="font-size:10px;color:var(--muted)" id="theme-home-val">#1a0f0a</span>
                       <span style="font-size:10px;color:var(--muted);font-style:italic">Warna background halaman Home</span>
@@ -3658,8 +3659,8 @@ var _themes={
   neon:{dark:'#020e14',dark2:'#041c28',gold:'#00e5ff',gold2:'#80f0ff',cream:'#041c28',cream2:'#031420',cream3:'#020e18',white:'#063040',border:'#0a5878',sidebar:'#020e14',home:'#020e14',cardText:'#b0f8ff',text:'#b0f8ff',mid:'#00c8e0',muted:'#0090b0',
     homeTitle:'#80f8ff',homeEyebrow:'rgba(0,229,255,.9)',homeSub:'rgba(128,248,255,.35)',homeStat:'rgba(128,248,255,.35)'},
   // 10. Electric Violet — very dark, electric purple accent, deep indigo bg
-  elektrik:{dark:'#0a0618',dark2:'#120c28',gold:'#8040ff',gold2:'#a870ff',cream:'#180c40',cream2:'#120830',cream3:'#0c0620',white:'#220e58',border:'#4020a0',sidebar:'#0a0618',home:'#0a0618',cardText:'#e8d0ff',text:'#e8d0ff',mid:'#9050ff',muted:'#6030c0',
-    homeTitle:'#d0a8ff',homeEyebrow:'rgba(128,64,255,.95)',homeSub:'rgba(200,160,255,.35)',homeStat:'rgba(200,160,255,.35)'},
+  elektrik:{dark:'#0a0618',dark2:'#120c28',gold:'#8040ff',gold2:'#a870ff',cream:'#180c40',cream2:'#120830',cream3:'#0c0620',white:'#220e58',border:'#6040c0',sidebar:'#0a0618',home:'#0a0618',cardText:'#f5eeff',text:'#f5eeff',mid:'#b080ff',muted:'#8050d0',
+    homeTitle:'#f0e0ff',homeEyebrow:'rgba(160,100,255,.95)',homeSub:'rgba(220,190,255,.4)',homeStat:'rgba(220,190,255,.4)'},
   // 11. Sunset — dark charcoal, vivid orange-red accent, deep ember bg
   sunset:{dark:'#180c04',dark2:'#281408',gold:'#ff6020',gold2:'#ff8840',cream:'#3a1808',cream2:'#2e1004',cream3:'#220c02',white:'#4e2010',border:'#903010',sidebar:'#180c04',home:'#180c04',cardText:'#ffe8d0',text:'#ffe8d0',mid:'#ff7030',muted:'#cc4010',
     homeTitle:'#ffd0a8',homeEyebrow:'rgba(255,96,32,.95)',homeSub:'rgba(255,200,150,.35)',homeStat:'rgba(255,200,150,.35)'},
@@ -3686,7 +3687,7 @@ function applyTheme(t){
       +'.story-circles-bar::-webkit-scrollbar,.story-photo-strip::-webkit-scrollbar,#story-circles-bar::-webkit-scrollbar,#story-photo-strip::-webkit-scrollbar{display:none!important}';
   }
   if(t.dark2){r.setProperty('--dark2',t.dark2);}
-  if(t.gold){r.setProperty('--gold',t.gold);}
+  if(t.gold){r.setProperty('--gold',t.gold);r.setProperty('--ctrl-border',t.gold+'55');}
   if(t.gold2){r.setProperty('--gold2',t.gold2);}
   if(t.cream){r.setProperty('--cream',t.cream);r.setProperty('--cream-bg',t.cream);}
   if(t.cream2){r.setProperty('--cream2',t.cream2);}
