@@ -3322,7 +3322,7 @@ window.lbOpen=lbOpen;window.lbGo=lbGo;window.lbClose=lbClose;
 // ── HELPERS ──
 function fmtDate(el){let v=el.value.replace(/\D/g,'');if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);if(v.length>5)v=v.slice(0,5)+'/'+v.slice(5);el.value=v.slice(0,10);}
 window.fmtDate=fmtDate;
-function ytIdFromUrl(url){if(!url)return null;const m=url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
+function ytIdFromUrl(url){if(!url)return null;const m=url.match(/(?:v=|youtu\.be\/|shorts\/|live\/|embed\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
 
 // Parse Google Drive file ID from various link formats
 function driveIdFromUrl(url){
