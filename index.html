@@ -414,8 +414,14 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 .sub-btn{width:100%;padding:14px;background:var(--dark);color:rgba(255,255,255,.85);border:none;border-radius:12px;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;font-weight:300;transition:all .2s}
 .sub-btn:hover{background:var(--dark2)}
 .sub-btn:disabled{opacity:.5;cursor:not-allowed}
-.prog{height:2px;background:var(--cream3);border-radius:1px;overflow:hidden;margin-top:8px;display:none}
-.prog-f{height:100%;background:var(--gold);width:0%;transition:width .3s;border-radius:1px}
+.prog{display:none;margin-top:14px;padding:14px 16px;background:var(--dark);border-radius:12px;border:0.5px solid var(--border-dark)}
+.prog-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.prog-status{font-size:12px;color:rgba(255,255,255,.55);font-weight:300;letter-spacing:.3px}
+.prog-pct{font-size:22px;color:var(--gold);font-weight:200;font-variant-numeric:tabular-nums;line-height:1}
+.prog-track{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.prog-f{height:100%;background:var(--gold);width:0%;transition:width .25s;border-radius:3px}
+.prog-dots{display:flex;gap:3px;flex-wrap:wrap}
+.prog-dot{height:4px;flex:1;min-width:8px;max-width:24px;border-radius:2px;background:rgba(255,255,255,.1);transition:background .3s}
 .geo-hint{font-size:11px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:8px;font-weight:300}
 .geo-btn{font-size:10px;color:var(--gold);background:transparent;border:0.5px solid var(--gold);padding:3px 10px;border-radius:6px;cursor:pointer;font-family:'Jost',sans-serif;transition:all .15s}
 .geo-btn:hover{background:var(--gold);color:var(--dark)}
@@ -870,7 +876,14 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
             </div>
             <input type="file" id="f-photos" multiple accept="image/*" style="display:none">
             <div class="up-prev" id="u-prev"></div>
-            <div class="prog" id="prog"><div class="prog-f" id="prog-f"></div></div>
+            <div class="prog" id="prog">
+              <div class="prog-label">
+                <div class="prog-status" id="prog-status">Mempersiapkan...</div>
+                <div class="prog-pct" id="prog-pct">0%</div>
+              </div>
+              <div class="prog-track"><div class="prog-f" id="prog-f"></div></div>
+              <div class="prog-dots" id="prog-dots"></div>
+            </div>
           </div>
           <div class="f-sec">
             <label class="f-lbl">Link video YouTube <span style="font-weight:200;letter-spacing:0;font-size:9px">(opsional, bisa beberapa)</span></label>
@@ -1129,6 +1142,20 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
   </div>
 </div>
 
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-bg" id="del-modal">
+  <div class="modal-box" style="max-width:360px;text-align:center;padding:32px 28px">
+    <div style="width:52px;height:52px;border-radius:50%;background:rgba(200,80,80,.12);border:1px solid rgba(200,80,80,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:22px">✕</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--card-text);font-weight:300;font-style:italic;margin-bottom:8px">Hapus Kenangan?</div>
+    <div style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:6px">Album <span id="del-album-name" style="color:var(--card-text);font-weight:400"></span> akan dihapus permanen.</div>
+    <div style="font-size:11px;color:rgba(200,80,80,.6);font-weight:300;margin-bottom:24px;letter-spacing:.3px">Tindakan ini tidak bisa dibatalkan.</div>
+    <div style="display:flex;gap:10px">
+      <button onclick="closeModal('del-modal')" style="flex:1;padding:11px;background:transparent;border:0.5px solid var(--border);border-radius:10px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'Jost',sans-serif;font-weight:300;transition:all .2s">Batal</button>
+      <button id="del-confirm-btn" onclick="doDeleteAlbum()" style="flex:1;padding:11px;background:rgba(200,80,80,.15);border:0.5px solid rgba(200,80,80,.35);border-radius:10px;font-size:12px;color:rgba(220,80,80,.9);cursor:pointer;font-family:'Jost',sans-serif;font-weight:400;transition:all .2s">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
 <!-- EDIT MODAL -->
 <div class="modal-bg" id="edit-modal">
   <div class="modal-box">
@@ -1154,7 +1181,14 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
       <label class="f-lbl">Foto saat ini <span id="e-existing-count" style="color:var(--muted);font-weight:300"></span></label>
       <div id="e-existing-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px"></div>
     </div>
-    <div class="f-sec"><label class="f-lbl">Tambah foto baru</label><div class="upzone" style="padding:14px" onclick="document.getElementById('e-photos').click()"><div class="up-text" style="font-size:12px">Tap untuk tambah foto</div></div><input type="file" id="e-photos" multiple accept="image/*" style="display:none"><div class="up-prev" id="e-prev"></div><div class="prog" id="e-prog"><div class="prog-f" id="e-prog-f"></div></div></div>
+    <div class="f-sec"><label class="f-lbl">Tambah foto baru</label><div class="upzone" style="padding:14px" onclick="document.getElementById('e-photos').click()"><div class="up-text" style="font-size:12px">Tap untuk tambah foto</div></div><input type="file" id="e-photos" multiple accept="image/*" style="display:none"><div class="up-prev" id="e-prev"></div><div class="prog" id="e-prog">
+              <div class="prog-label">
+                <div class="prog-status" id="e-prog-status">Mempersiapkan...</div>
+                <div class="prog-pct" id="e-prog-pct">0%</div>
+              </div>
+              <div class="prog-track"><div class="prog-f" id="e-prog-f"></div></div>
+              <div class="prog-dots" id="e-prog-dots"></div>
+            </div></div>
     <div class="f-sec"><label class="f-lbl">Favorit?</label><select class="f-in" id="e-fav"><option value="false">Tidak</option><option value="true">Ya ✦</option></select></div>
     <div class="modal-btns"><button class="m-cancel" onclick="closeModal('edit-modal')">Batal</button><button class="m-save" id="e-btn" onclick="saveEdit()">Simpan</button></div>
   </div>
@@ -2886,14 +2920,37 @@ async function submitAlbum(){
   const location=document.getElementById('f-loc-search').value.trim();
   if(!place||!date){toast('Destinasi dan tanggal wajib diisi');return;}
   const btn=document.getElementById('sub-btn');
-  const bar=document.getElementById('prog');const fill=document.getElementById('prog-f');
+  const bar=document.getElementById('prog');
+  const fill=document.getElementById('prog-f');
+  const pct=document.getElementById('prog-pct');
+  const status=document.getElementById('prog-status');
+  const dotsEl=document.getElementById('prog-dots');
   btn.disabled=true;btn.textContent='Mengupload...';bar.style.display='block';
+  // Init dots
+  var totalFiles=pFiles.length;
+  function renderDots(cur){
+    if(!dotsEl||!totalFiles)return;
+    var h='';
+    for(var d=0;d<totalFiles;d++){
+      var bg=d<cur?'var(--gold2)':d===cur?'var(--gold)':'rgba(255,255,255,.1)';
+      h+='<div class="prog-dot" style="background:'+bg+'"></div>';
+    }
+    dotsEl.innerHTML=h;
+  }
+  renderDots(0);
   try{
     const urls=[];
     for(let i=0;i<pFiles.length;i++){
-      const url=await uploadImg(pFiles[i],p=>{fill.style.width=((i+p)/pFiles.length*100)+'%';});
+      if(status)status.textContent='Foto '+(i+1)+' dari '+pFiles.length+'...';
+      renderDots(i);
+      const url=await uploadImg(pFiles[i],p=>{
+        var overall=((i+p)/pFiles.length*100);
+        fill.style.width=overall+'%';
+        if(pct)pct.textContent=Math.round(overall)+'%';
+      });
       urls.push(url);
     }
+    if(status)status.textContent='Menyimpan kenangan...';
     await window.$add(window.$col('albums'),{place,location,date,story,video,favorite:fav,photos:urls,lat,lng,likes:0,comments:0,createdAt:window.$ts(),tracks:_albumTracks.map(function(t){return {title:t.title,ytId:t.ytId,url:t.url};})});
     toast('Kenangan berhasil disimpan! ✦');
     ['f-place','f-date','f-story','f-video','f-loc-search'].forEach(id=>document.getElementById(id).value='');
@@ -2902,6 +2959,9 @@ async function submitAlbum(){
     fVideoLinks=[];renderVideoList();
     document.getElementById('u-prev').innerHTML='';pFiles=[];
     bar.style.display='none';fill.style.width='0%';
+    if(pct)pct.textContent='0%';
+    if(status)status.textContent='Mempersiapkan...';
+    if(dotsEl)dotsEl.innerHTML='';
     await loadData();goAlbum();
   }catch(e){console.error(e);toast('Gagal menyimpan.');}
   btn.disabled=false;btn.textContent='Simpan Kenangan';
@@ -2995,11 +3055,29 @@ async function saveEdit(){
   if(!place||!date){toast('Destinasi dan tanggal wajib diisi');return;}
   const btn=document.getElementById('e-btn');
   const bar=document.getElementById('e-prog');const fill=document.getElementById('e-prog-f');
+  const ePct=document.getElementById('e-prog-pct');const eStatus=document.getElementById('e-prog-status');const eDotsEl=document.getElementById('e-prog-dots');
   btn.disabled=true;btn.textContent='Menyimpan...';bar.style.display='block';
+  var eTotalFiles=eFiles.length;
+  function renderEDots(cur){
+    if(!eDotsEl||!eTotalFiles)return;
+    var h='';
+    for(var d=0;d<eTotalFiles;d++){
+      var bg=d<cur?'var(--gold2)':d===cur?'var(--gold)':'rgba(255,255,255,.1)';
+      h+='<div class="prog-dot" style="background:'+bg+'"></div>';
+    }
+    eDotsEl.innerHTML=h;
+  }
+  renderEDots(0);
   try{
     let photos=(current.photos||[]).filter(function(url){return _deletedPhotos.indexOf(url)===-1;});
     for(let i=0;i<eFiles.length;i++){
-      const url=await uploadImg(eFiles[i],p=>{fill.style.width=((i+p)/eFiles.length*100)+'%';});
+      if(eStatus)eStatus.textContent='Foto '+(i+1)+' dari '+eFiles.length+'...';
+      renderEDots(i);
+      const url=await uploadImg(eFiles[i],p=>{
+        var overall=((i+p)/eFiles.length*100);
+        fill.style.width=overall+'%';
+        if(ePct)ePct.textContent=Math.round(overall)+'%';
+      });
       photos.push(url);
     }
     const editTracksToSave=_editTracks.map(function(t){return {title:t.title,ytId:t.ytId,url:t.url||('https://youtube.com/watch?v='+t.ytId)};});
@@ -3007,6 +3085,7 @@ async function saveEdit(){
     toast('Kenangan berhasil diperbarui ✦');
     _deletedPhotos=[];_editTracks=[];
     closeModal('edit-modal');bar.style.display='none';fill.style.width='0%';
+    if(ePct)ePct.textContent='0%';if(eStatus)eStatus.textContent='Mempersiapkan...';if(eDotsEl)eDotsEl.innerHTML='';
     await loadData();openDetail(current.id,_detailFrom);
   }catch(e){console.error(e);toast('Gagal menyimpan.');}
   btn.disabled=false;btn.textContent='Simpan';
@@ -3015,11 +3094,30 @@ window.saveEdit=saveEdit;
 
 async function confirmDelete(){
   if(!current)return;
-  if(!confirm('Hapus album "'+current.place+'"?\nTidak bisa dibatalkan.'))return;
-  try{await window.$del(window.$ref('albums',current.id));toast('Album dihapus');closeDetail();await loadData();}
-  catch(e){toast('Gagal menghapus.');}
+  var nameEl=document.getElementById('del-album-name');
+  if(nameEl)nameEl.textContent='"'+(current.place||'album ini')+'"';
+  var btn=document.getElementById('del-confirm-btn');
+  if(btn){btn.textContent='Ya, Hapus';btn.disabled=false;}
+  openModal('del-modal');
 }
 window.confirmDelete=confirmDelete;
+
+async function doDeleteAlbum(){
+  if(!current)return;
+  var btn=document.getElementById('del-confirm-btn');
+  if(btn){btn.disabled=true;btn.textContent='Menghapus...';}
+  try{
+    await window.$del(window.$ref('albums',current.id));
+    closeModal('del-modal');
+    toast('Album dihapus');
+    closeDetail();
+    await loadData();
+  }catch(e){
+    toast('Gagal menghapus.');
+    if(btn){btn.disabled=false;btn.textContent='Ya, Hapus';}
+  }
+}
+window.doDeleteAlbum=doDeleteAlbum;
 
 // ── AUTOCOMPLETE & MAP PICKER ──
 function initPickerMap(){
