@@ -679,6 +679,10 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
         <div id="album-list-view">
           <div class="page-head"><div class="page-eyebrow">✦ Koleksi perjalanan</div><div class="page-title">Album</div><div class="page-sub">Kumpulan foto setiap destinasi</div></div>
           <div class="album-page-inner">
+            <div style="position:relative;margin-bottom:14px">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--muted)" stroke-width="1.5" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none"><circle cx="6.5" cy="6.5" r="4"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
+              <input type="text" id="album-search-in" placeholder="Cari album..." oninput="searchAlbum(this.value)" style="width:100%;padding:9px 12px 9px 34px;border:0.5px solid var(--border);border-radius:20px;font-size:12px;font-family:'Jost',sans-serif;background:var(--white);color:var(--text);outline:none">
+            </div>
             <div class="album-filter" id="album-filter">
               <button class="af-btn active" onclick="filterAlbum('all',this)">Semua</button>
               <button class="af-btn" onclick="filterAlbum('fav',this)">Favorit</button>
@@ -689,10 +693,11 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
         <div id="detail-view">
           <div class="d-top">
             <button class="back-btn" onclick="closeDetail()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg> Kembali</button>
-            <div class="d-acts admin-only" id="d-acts">
-              <button class="d-act-btn" onclick="openEditModal()">✎ Edit</button>
-              <button class="d-act-btn" onclick="openCoverEditor(current&&current.id)">🖼 Cover</button>
-              <button class="d-act-btn danger" onclick="confirmDelete()">✕ Hapus</button>
+            <div class="d-acts" id="d-acts">
+              <button class="d-act-btn admin-only" onclick="openEditModal()">✎ Edit</button>
+              <button class="d-act-btn admin-only" onclick="openCoverEditor(current&&current.id)">🖼 Cover</button>
+              <button class="d-act-btn" onclick="openDownloadModal()">⬇ Unduh</button>
+              <button class="d-act-btn danger admin-only" onclick="confirmDelete()">✕ Hapus</button>
             </div>
           </div>
           <div class="d-header">
@@ -1086,6 +1091,7 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 <!-- LIGHTBOX -->
 <div id="lb">
   <button class="lb-x" onclick="lbClose()">✕</button>
+  <button id="lb-dl" onclick="lbDownloadCurrent()" title="Unduh foto" style="position:fixed;top:16px;right:52px;background:rgba(255,255,255,.12);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:10002;transition:background .2s">⬇</button>
   <div class="lb-wrap">
     <button class="lb-arr" id="lb-prev" onclick="lbGo(-1)">&#8249;</button>
     <img id="lb-img" src="" alt="">
@@ -1101,6 +1107,25 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
     <div class="lb-cap" id="lb-cap"></div>
     <div class="lb-cnt" id="lb-cnt"></div>
     <div class="lb-dots" id="lb-dots"></div>
+  </div>
+</div>
+
+<!-- DOWNLOAD MODAL -->
+<div class="modal-bg" id="dl-modal">
+  <div class="modal-box" style="max-width:480px">
+    <div class="modal-title">Unduh Foto</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div style="font-size:11px;color:var(--muted);font-weight:300" id="dl-count-lbl">0 foto dipilih</div>
+      <div style="display:flex;gap:8px">
+        <button onclick="dlSelectAll()" style="font-size:10px;color:var(--gold);background:none;border:0.5px solid rgba(196,160,96,.4);padding:4px 12px;border-radius:20px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:300">Pilih Semua</button>
+        <button onclick="dlSelectNone()" style="font-size:10px;color:var(--muted);background:none;border:0.5px solid var(--border);padding:4px 12px;border-radius:20px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:300">Reset</button>
+      </div>
+    </div>
+    <div id="dl-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-height:300px;overflow-y:auto;margin-bottom:14px"></div>
+    <div class="modal-btns">
+      <button class="m-cancel" onclick="closeModal('dl-modal')">Batal</button>
+      <button class="m-save" id="dl-btn" onclick="dlDownloadSelected()">Unduh</button>
+    </div>
   </div>
 </div>
 
@@ -1745,6 +1770,12 @@ function renderAlbumGrid(){
     return pb.mo-pa.mo;
   });
   var filtered=albumFilter==='fav'?allSorted.filter(function(a){return a.favorite;}):allSorted;
+  if(albumSearch){
+    var q=albumSearch;
+    filtered=filtered.filter(function(a){
+      return (a.place||'').toLowerCase().includes(q)||(a.location||'').toLowerCase().includes(q);
+    });
+  }
   var g=document.getElementById('album-grid');
   var html2='';
 
@@ -1933,8 +1964,8 @@ function openDetail(id,from){
   document.getElementById('d-like-count').textContent=a.likes||0;
   // Comments preview
   renderCommentsPreview(a.id);
-  // Admin actions
-  document.getElementById('d-acts').classList.toggle('show',isAdmin);
+  // d-acts selalu tampil; tombol admin-only di dalamnya dikontrol class .show via initApp
+  document.getElementById('d-acts').style.display='flex';
   document.getElementById('main-scroll').scrollTop=0;
 }
 window.openDetail=openDetail;
@@ -3318,6 +3349,128 @@ lbEl.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-swX;if
 lbEl.addEventListener('click',e=>{if(e.target===lbEl)lbClose();});
 document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('show'))return;if(e.key==='ArrowRight')lbGo(1);else if(e.key==='ArrowLeft')lbGo(-1);else if(e.key==='Escape')lbClose();});
 window.lbOpen=lbOpen;window.lbGo=lbGo;window.lbClose=lbClose;
+
+// ── SEARCH ALBUM ──
+let albumSearch='';
+function searchAlbum(val){
+  albumSearch=(val||'').trim().toLowerCase();
+  renderAlbumGrid();
+}
+window.searchAlbum=searchAlbum;
+
+// ── DOWNLOAD MODAL ──
+var _dlSelected={};
+function openDownloadModal(){
+  if(!current)return;
+  var photos=(current.photos||[]).filter(function(p){return p&&p.startsWith('http');});
+  if(!photos.length){toast('Tidak ada foto untuk diunduh');return;}
+  _dlSelected={};
+  var html='';
+  photos.forEach(function(p,i){
+    html+='<div id="dl-cell-'+i+'" onclick="dlToggle('+i+')" style="position:relative;cursor:pointer;border-radius:8px;overflow:hidden;aspect-ratio:1;border:2px solid transparent;transition:border-color .15s">'
+      +'<img src="'+p+'" style="width:100%;height:100%;object-fit:cover" loading="lazy">'
+      +'<div id="dl-check-'+i+'" style="display:none;position:absolute;inset:0;background:rgba(196,160,96,.35);align-items:center;justify-content:center;font-size:20px">✓</div>'
+      +'</div>';
+  });
+  document.getElementById('dl-grid').innerHTML=html;
+  dlUpdateCount();
+  openModal('dl-modal');
+}
+function dlToggle(i){
+  _dlSelected[i]=!_dlSelected[i];
+  var cell=document.getElementById('dl-cell-'+i);
+  var chk=document.getElementById('dl-check-'+i);
+  if(cell)cell.style.borderColor=_dlSelected[i]?'var(--gold)':'transparent';
+  if(chk)chk.style.display=_dlSelected[i]?'flex':'none';
+  dlUpdateCount();
+}
+function dlSelectAll(){
+  var photos=(current&&current.photos)||[];
+  photos.forEach(function(_,i){
+    _dlSelected[i]=true;
+    var cell=document.getElementById('dl-cell-'+i);
+    var chk=document.getElementById('dl-check-'+i);
+    if(cell)cell.style.borderColor='var(--gold)';
+    if(chk)chk.style.display='flex';
+  });
+  dlUpdateCount();
+}
+function dlSelectNone(){
+  var photos=(current&&current.photos)||[];
+  photos.forEach(function(_,i){
+    _dlSelected[i]=false;
+    var cell=document.getElementById('dl-cell-'+i);
+    var chk=document.getElementById('dl-check-'+i);
+    if(cell)cell.style.borderColor='transparent';
+    if(chk)chk.style.display='none';
+  });
+  dlUpdateCount();
+}
+function dlUpdateCount(){
+  var n=Object.values(_dlSelected).filter(Boolean).length;
+  var lbl=document.getElementById('dl-count-lbl');
+  var btn=document.getElementById('dl-btn');
+  if(lbl)lbl.textContent=n+' foto dipilih';
+  if(btn)btn.textContent=n?'Unduh '+n+' foto':'Unduh';
+}
+async function dlDownloadSelected(){
+  var photos=(current&&current.photos)||[];
+  var selected=photos.filter(function(_,i){return _dlSelected[i];});
+  if(!selected.length){toast('Pilih foto dulu');return;}
+  var btn=document.getElementById('dl-btn');
+  if(btn){btn.disabled=true;btn.textContent='Mengunduh...';}
+  var place=(current&&current.place)||'foto';
+  for(var i=0;i<selected.length;i++){
+    await dlOne(selected[i],place+'_'+(i+1));
+    await new Promise(function(r){setTimeout(r,300);});
+  }
+  if(btn){btn.disabled=false;btn.textContent='Selesai ✦';}
+  toast('Unduhan selesai ✦');
+  setTimeout(function(){closeModal('dl-modal');},1200);
+}
+function dlOne(url,name){
+  return fetch(url)
+    .then(function(r){return r.blob();})
+    .then(function(blob){
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download=name+'.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    })
+    .catch(function(){
+      var a=document.createElement('a');
+      a.href=url;
+      a.download=name+'.jpg';
+      a.target='_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+}
+window.openDownloadModal=openDownloadModal;
+window.dlToggle=dlToggle;
+window.dlSelectAll=dlSelectAll;
+window.dlSelectNone=dlSelectNone;
+window.dlDownloadSelected=dlDownloadSelected;
+
+// ── LIGHTBOX DOWNLOAD ──
+function lbDownloadCurrent(){
+  var items=window._lbItems||[];
+  var item=items[lbIdx];
+  if(!item||item.type!=='photo'){toast('Video tidak bisa diunduh langsung');return;}
+  var url=item.src;
+  var name=(lbCap||'foto')+'_'+(lbIdx+1);
+  var dlBtn=document.getElementById('lb-dl');
+  if(dlBtn)dlBtn.style.opacity='0.5';
+  dlOne(url,name).then(function(){
+    toast('Foto diunduh ✦');
+    if(dlBtn)dlBtn.style.opacity='1';
+  });
+}
+window.lbDownloadCurrent=lbDownloadCurrent;
 
 // ── HELPERS ──
 function fmtDate(el){let v=el.value.replace(/\D/g,'');if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);if(v.length>5)v=v.slice(0,5)+'/'+v.slice(5);el.value=v.slice(0,10);}
