@@ -414,14 +414,14 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
 .sub-btn{width:100%;padding:14px;background:var(--dark);color:rgba(255,255,255,.85);border:none;border-radius:12px;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;font-weight:300;transition:all .2s}
 .sub-btn:hover{background:var(--dark2)}
 .sub-btn:disabled{opacity:.5;cursor:not-allowed}
-.prog{display:none;margin-top:14px;padding:14px 16px;background:var(--dark);border-radius:12px;border:0.5px solid var(--border-dark)}
+.prog{display:none;margin-top:14px;padding:14px 16px;background:rgba(0,0,0,.35);border-radius:12px;border:0.5px solid rgba(255,255,255,.12)}
 .prog-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
 .prog-status{font-size:12px;color:rgba(255,255,255,.55);font-weight:300;letter-spacing:.3px}
 .prog-pct{font-size:22px;color:var(--gold);font-weight:200;font-variant-numeric:tabular-nums;line-height:1}
-.prog-track{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
-.prog-f{height:100%;background:var(--gold);width:0%;transition:width .25s;border-radius:3px}
+.prog-track{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.prog-f{height:100%;background:var(--gold);width:0%;transition:width .2s;border-radius:3px}
 .prog-dots{display:flex;gap:3px;flex-wrap:wrap}
-.prog-dot{height:4px;flex:1;min-width:8px;max-width:24px;border-radius:2px;background:rgba(255,255,255,.1);transition:background .3s}
+.prog-dot{height:4px;flex:1;min-width:8px;max-width:24px;border-radius:2px;background:rgba(255,255,255,.12);transition:background .3s}
 .geo-hint{font-size:11px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:8px;font-weight:300}
 .geo-btn{font-size:10px;color:var(--gold);background:transparent;border:0.5px solid var(--gold);padding:3px 10px;border-radius:6px;cursor:pointer;font-family:'Jost',sans-serif;transition:all .15s}
 .geo-btn:hover{background:var(--gold);color:var(--dark)}
@@ -1156,6 +1156,19 @@ html,body{height:100%;font-family:'Jost',sans-serif;background:var(--cream);colo
   </div>
 </div>
 
+<!-- GENERIC CONFIRM MODAL -->
+<div class="modal-bg" id="confirm-modal">
+  <div class="modal-box" style="max-width:340px;text-align:center;padding:28px 24px">
+    <div id="confirm-icon" style="width:48px;height:48px;border-radius:50%;background:rgba(200,80,80,.12);border:1px solid rgba(200,80,80,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:18px">✕</div>
+    <div id="confirm-title" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--card-text);font-weight:300;font-style:italic;margin-bottom:6px">Hapus?</div>
+    <div id="confirm-msg" style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:20px"></div>
+    <div style="display:flex;gap:10px">
+      <button onclick="closeModal('confirm-modal')" style="flex:1;padding:10px;background:transparent;border:0.5px solid var(--border);border-radius:10px;font-size:12px;color:var(--muted);cursor:pointer;font-family:'Jost',sans-serif;font-weight:300">Batal</button>
+      <button id="confirm-ok-btn" style="flex:1;padding:10px;background:rgba(200,80,80,.15);border:0.5px solid rgba(200,80,80,.35);border-radius:10px;font-size:12px;color:rgba(220,80,80,.9);cursor:pointer;font-family:'Jost',sans-serif;font-weight:400">Hapus</button>
+    </div>
+  </div>
+</div>
+
 <!-- EDIT MODAL -->
 <div class="modal-bg" id="edit-modal">
   <div class="modal-box">
@@ -1774,13 +1787,18 @@ async function addMoment(){
   }catch(e){toast('Gagal menambah momen');}
 }
 async function deleteMoment(id){
-  if(!confirm('Hapus momen ini?'))return;
-  try{
-    await window.$del(window.$ref('moments',id));
-    moments=moments.filter(m=>m.id!==id);
-    renderMoments();updateCountdown();
-    toast('Momen dihapus');
-  }catch(e){toast('Gagal menghapus');}
+  var m=moments.find(function(x){return x.id===id;})||{};
+  showConfirm({
+    title:'Hapus momen?',
+    msg:'"'+(m.name||'Momen ini')+'" akan dihapus permanen.',
+    icon:'♡',
+    onOk:async function(){
+      await window.$del(window.$ref('moments',id));
+      moments=moments.filter(m=>m.id!==id);
+      renderMoments();updateCountdown();
+      toast('Momen dihapus');
+    }
+  });
 }
 window.addMoment=addMoment;
 window.deleteMoment=deleteMoment;
@@ -2098,21 +2116,23 @@ async function saveComment(){
 window.saveComment=saveComment;
 
 async function deleteComment(albumId,commentId){
-  if(!confirm('Hapus komentar ini?'))return;
-  try{
-    await window.$del(window.$ref('comments/'+albumId+'/items',commentId));
-    // Remove from UI
-    var el=document.getElementById('cmt-'+commentId);
-    if(el)el.remove();
-    // Update comment count
-    var a=albums.find(function(x){return x.id===albumId;});
-    if(a){
-      a.comments=Math.max(0,(a.comments||1)-1);
-      await window.$upd(window.$ref('albums',albumId),{comments:a.comments});
+  showConfirm({
+    title:'Hapus komentar?',
+    msg:'Komentar ini akan dihapus permanen.',
+    icon:'💬',
+    onOk:async function(){
+      await window.$del(window.$ref('comments/'+albumId+'/items',commentId));
+      var el=document.getElementById('cmt-'+commentId);
+      if(el)el.remove();
+      var a=albums.find(function(x){return x.id===albumId;});
+      if(a){
+        a.comments=Math.max(0,(a.comments||1)-1);
+        await window.$upd(window.$ref('albums',albumId),{comments:a.comments});
+      }
+      toast('Komentar dihapus');
     }
-    toast('Komentar dihapus');
-  }catch(e){toast('Gagal menghapus komentar');}
-}
+  });
+}}
 window.deleteComment=deleteComment;
 
 // ── GOOGLE CALENDAR ID MANAGEMENT ──
@@ -2774,12 +2794,16 @@ async function addMusic(){
 }
 
 async function deleteTrack(id){
-  if(!confirm('Hapus lagu ini?'))return;
-  try{
-    await window.$del(window.$ref('tracks',id));
-    tracks=tracks.filter(t=>t.id!==id);
-    renderMusicList();toast('Lagu dihapus');
-  }catch(e){toast('Gagal menghapus');}
+  showConfirm({
+    title:'Hapus lagu?',
+    msg:'Lagu ini akan dihapus dari playlist.',
+    icon:'♪',
+    onOk:async function(){
+      await window.$del(window.$ref('tracks',id));
+      tracks=tracks.filter(t=>t.id!==id);
+      renderMusicList();toast('Lagu dihapus');
+    }
+  });
 }
 
 function playTrack(idx){
@@ -2943,6 +2967,9 @@ async function submitAlbum(){
     for(let i=0;i<pFiles.length;i++){
       if(status)status.textContent='Foto '+(i+1)+' dari '+pFiles.length+'...';
       renderDots(i);
+      var baseP=(i/pFiles.length*100);
+      fill.style.width=baseP+'%';
+      if(pct)pct.textContent=Math.round(baseP)+'%';
       const url=await uploadImg(pFiles[i],p=>{
         var overall=((i+p)/pFiles.length*100);
         fill.style.width=overall+'%';
@@ -3003,9 +3030,15 @@ function renderExistingPhotos(){
   }).join('');
 }
 window.deleteExistingPhoto=function(url){
-  if(!confirm('Hapus foto ini dari album?'))return;
-  _deletedPhotos.push(url);
-  renderExistingPhotos();
+  showConfirm({
+    title:'Hapus foto?',
+    msg:'Foto ini akan dihapus dari album saat kamu simpan.',
+    icon:'🖼',
+    onOk:async function(){
+      _deletedPhotos.push(url);
+      renderExistingPhotos();
+    }
+  });
 };
 
 function openEditModal(){
@@ -3073,6 +3106,9 @@ async function saveEdit(){
     for(let i=0;i<eFiles.length;i++){
       if(eStatus)eStatus.textContent='Foto '+(i+1)+' dari '+eFiles.length+'...';
       renderEDots(i);
+      var eBaseP=(i/eFiles.length*100);
+      fill.style.width=eBaseP+'%';
+      if(ePct)ePct.textContent=Math.round(eBaseP)+'%';
       const url=await uploadImg(eFiles[i],p=>{
         var overall=((i+p)/eFiles.length*100);
         fill.style.width=overall+'%';
@@ -3396,8 +3432,15 @@ async function saveUser(){
 }
 async function deleteUser(id,name){
   if(id===currentUser.id){toast('Tidak bisa menghapus akun sendiri');return;}
-  if(!confirm('Hapus pengguna "'+name+'"?'))return;
-  try{await window.$del(window.$ref('users',id));toast('Pengguna dihapus');renderUsers();}catch(e){toast('Gagal menghapus');}
+  showConfirm({
+    title:'Hapus pengguna?',
+    msg:'Akun "'+name+'" akan dihapus permanen.',
+    icon:'◎',
+    onOk:async function(){
+      await window.$del(window.$ref('users',id));
+      toast('Pengguna dihapus');renderUsers();
+    }
+  });
 }
 async function savePw(){
   const np=document.getElementById('pw-new').value;
@@ -3607,6 +3650,29 @@ function stripHtml(s){return(s||'').replace(/<[^>]+>/g,'');}
 function openModal(id){document.getElementById(id).classList.add('show');}
 function closeModal(id){document.getElementById(id).classList.remove('show');}
 window.openModal=openModal;window.closeModal=closeModal;
+
+function showConfirm(opts){
+  // opts: {title, msg, icon, onOk}
+  var titleEl=document.getElementById('confirm-title');
+  var msgEl=document.getElementById('confirm-msg');
+  var iconEl=document.getElementById('confirm-icon');
+  var btn=document.getElementById('confirm-ok-btn');
+  if(titleEl)titleEl.textContent=opts.title||'Hapus?';
+  if(msgEl)msgEl.textContent=opts.msg||'';
+  if(iconEl)iconEl.textContent=opts.icon||'✕';
+  if(btn){
+    btn.textContent='Hapus';
+    btn.disabled=false;
+    btn.onclick=async function(){
+      btn.disabled=true;btn.textContent='Menghapus...';
+      try{await opts.onOk();}catch(e){}
+      closeModal('confirm-modal');
+      btn.disabled=false;btn.textContent='Hapus';
+    };
+  }
+  openModal('confirm-modal');
+}
+window.showConfirm=showConfirm;
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
 
