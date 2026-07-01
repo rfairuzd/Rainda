@@ -2031,6 +2031,13 @@ window.goDetail=goDetail;
 
 
 function closeDetail(){
+  // Hentikan lagu saat keluar album
+  if(ytPlayer&&ytReady&&isPlaying){
+    try{ytPlayer.pauseVideo();}catch(e){}
+    isPlaying=false;
+    updatePlayIcons();
+  }
+  window._currentAlbumTrackId=null;
   const from=_detailFrom;
   document.getElementById('album-list-view').style.display='block';
   document.getElementById('detail-view').style.display='none';
@@ -2920,6 +2927,10 @@ setInterval(()=>{
     ['mm-dur','mp-dur'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=fmt(dur);});
   }
 },500);
+// Refresh track list icons every second (play/pause state)
+setInterval(()=>{
+  if(window._renderAlbumTracks)window._renderAlbumTracks();
+},1000);
 
 // ── UPLOAD & SUBMIT ──
 document.getElementById('f-photos').addEventListener('change',function(){
@@ -4334,12 +4345,12 @@ function renderDetailTracks(album){
 
   window._renderAlbumTracks();
 
-  // Auto-play lagu pertama saat buka album
+  // Auto-play lagu pertama (desktop). Mobile browser blokir autoplay — user tap langsung di tracklist
   var firstTrack=allTracks[0];
   if(firstTrack&&firstTrack.ytId&&window._currentAlbumTrackId!==firstTrack.ytId){
     window._currentAlbumTrackId=firstTrack.ytId;
     setTimeout(function(){
-      playAlbumTrack(firstTrack.ytId,firstTrack.title);
+      try{playAlbumTrack(firstTrack.ytId,firstTrack.title);}catch(e){}
       setTimeout(function(){if(window._renderAlbumTracks)window._renderAlbumTracks();},500);
     },300);
   }
